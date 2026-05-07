@@ -53,7 +53,12 @@
     .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.how-card{text-align:center;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:24px 18px}.how-number{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:linear-gradient(135deg,var(--purple),var(--blue));font-weight:900}.how-card h3{margin:0 0 8px}.how-card p{margin:0;color:var(--muted);line-height:1.5}
     .download{max-width:1100px;text-align:center}.download-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}.download-card,.steps{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px;text-align:center}.apk{display:flex;gap:18px;align-items:center;justify-content:center;margin-bottom:22px}.android,.shield{width:74px;height:74px;border-radius:20px;display:grid;place-items:center;background:rgba(124,77,255,.16);border:1px solid rgba(124,77,255,.34);color:#c9b6ff}.android svg,.shield svg{width:36px;height:36px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.apk h3{margin:0 0 8px;text-align:left}.apk p{margin:0;color:var(--muted);text-align:left}.download-card .btn{width:100%}.info-box{margin-top:22px;padding:18px;color:#dbe1f8;border-radius:15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);line-height:1.5}.steps h3{margin:0 0 20px}.steps ol{list-style:none;padding:0;margin:0 auto;display:grid;gap:14px;max-width:430px;text-align:left}.steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;color:#dce3fb;line-height:1.45}.steps b{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:13px}.privacy{max-width:1100px;display:grid;grid-template-columns:90px 1fr;align-items:center;gap:24px}.privacy h3{margin:0 0 8px;font-size:24px}.privacy p{margin:0;color:var(--muted);line-height:1.5}.privacy a{color:#c7aaff;font-weight:800}
     .faq{margin:44px auto;text-align:center}.faq-list{width:min(900px,100%);margin:26px auto 0;display:grid;gap:12px;justify-items:center}details{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:13px;padding:18px 22px;text-align:left}summary{cursor:pointer;font-weight:800;list-style:none}summary::-webkit-details-marker{display:none}details p{color:var(--muted);line-height:1.6;margin:14px 0 0;max-width:720px}
-    footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(2,4,12,.55);padding:44px 0 24px}.footer-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr auto;gap:36px;align-items:start}footer p,footer a{color:var(--muted)}footer h4{margin:0 0 12px}footer a{display:block;margin:9px 0}.copyright{text-align:center;color:#778099;margin-top:36px}
+    footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(2,4,12,.55);padding:44px 0 24px}.footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 36px;
+      align-items: center;
+    }footer p,footer a{color:var(--muted)}footer h4{margin:0 0 12px}footer a{display:block;margin:9px 0}.copyright{text-align:center;color:#778099;margin-top:36px}
     @media(max-width:980px){.nav-links{display:none}.scene{min-height:auto;padding:12px}.place{position:relative;width:100%;height:auto;aspect-ratio:1.61/1;left:auto;right:auto;top:auto;bottom:auto;margin:16px 0}.center-mark,.arc{display:none}.feature-row,.how-grid,.download-grid,.footer-grid,.privacy{grid-template-columns:1fr}.privacy{text-align:center}.privacy .shield{margin:0 auto}.apk{flex-direction:column}.apk h3,.apk p{text-align:center}}
       /* v11 polish */
 
@@ -190,36 +195,55 @@
       <div class="feature-row" id="features"><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>See who’s around</h3><p>Discover nearby people in your current location.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></div><h3>Start conversations</h3><p>Break the ice with easy starters and shared context.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>In real life</h3><p>From the park to the gym, Kami works where you do.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div><h3>Meaningful by design</h3><p>We limit noise so you can focus on real connections.</p></div></div>
     </section>
     <section id="how-it-works" class="container panel scroll-anchor"><div class="section-kicker">How It Works</div><h2 class="section-title">From download to real-life connection.</h2><p class="section-sub">Kami is intentionally simple: install the app, connect your social context, and get notified when there is someone worth meeting nearby.</p><div class="how-grid"><div class="how-card"><div class="how-number">1</div><h3>Download Kami</h3><p>Install the Android APK directly from this site while we prepare for broader app store distribution.</p></div><div class="how-card"><div class="how-number">2</div><h3>Enter your Instagram</h3><p>Add your IG handle so Kami can understand enough public context to help make nearby people feel less random.</p></div><div class="how-card"><div class="how-number">3</div><h3>Wait for a notification</h3><p>When Kami spots someone nearby who seems relevant, interesting, or worth saying hi to, you get a nudge.</p></div><div class="how-card"><div class="how-number">4</div><h3>Connect in real life</h3><p>Use the context as an opener, then actually meet, talk, train, walk, work, or hang out in the place you already are.</p></div></div></section>
-    <section id="download" class="container panel download"><div class="section-kicker">Download</div><h2 class="section-title">Get Kami for Android</h2><p class="section-sub">iOS is coming soon. Android users can download the APK and install it directly.</p><div class="download-grid"><div class="download-card"><div class="apk"><div class="android"><svg viewBox="0 0 24 24"><path d="M5 16V9a7 7 0 0 1 14 0v7"/><path d="M5 16h14v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M8 5 6 2"/><path d="m16 5 2-3"/><path d="M9 11h.01"/><path d="M15 11h.01"/></svg></div><div><h3>Download Latest Release</h3><p><span id="apk-version">loading...</span>.apk<br />Size: <span id="apk-size">loading...</span></p></div></div><a id="apk-download" class="btn" href="assets/kami-v1.0.0.apk" download>⬇ Download APK</a>
-          <a class="btn secondary install-link" href="#sideloading">View install instructions</a><div class="info-box">Kami is not available on the Play Store yet. Download the APK and sideload to install.</div></div><div class="steps" id="sideloading"><h3>Sideloading Instructions</h3><ol><li><b>1</b><span>Download the APK file from the button on the left.</span></li><li><b>2</b><span>Open Settings on your Android device.</span></li><li><b>3</b><span>Go to Security & privacy &gt; More security settings.</span></li><li><b>4</b><span>Enable Install unknown apps.</span></li><li><b>5</b><span>Select your browser or file manager and allow from this source.</span></li><li><b>6</b><span>Open the downloaded APK file and tap Install.</span></li></ol></div></div></section>
+    <section id="download" class="container panel download"><div class="section-kicker">Download</div><h2 class="section-title">Get Kami for Android</h2><p class="section-sub">iOS is coming soon. Android users can download the APK and install it directly.</p><div class="download-grid"><div class="download-card"><div class="apk"><div class="android"><svg viewBox="0 0 24 24"><path d="M5 16V9a7 7 0 0 1 14 0v7"/><path d="M5 16h14v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M8 5 6 2"/><path d="m16 5 2-3"/><path d="M9 11h.01"/><path d="M15 11h.01"/></svg></div><div><h3>Download Latest Release</h3><p><span id="apk-version">loading...</span>.apk<br />Size: <span id="apk-size">loading...</span></p></div></div><a id="apk-download" class="btn" href="#">⬇ Download APK</a><div class="info-box">Kami is not available on the Play Store yet. Download the APK and sideload to install.</div></div><div class="steps" id="sideloading"><h3>Sideloading Instructions</h3><ol><li><b>1</b><span>Download the APK file from the button on the left.</span></li><li><b>2</b><span>Open Settings on your Android device.</span></li><li><b>3</b><span>Go to Security & privacy &gt; More security settings.</span></li><li><b>4</b><span>Enable Install unknown apps.</span></li><li><b>5</b><span>Select your browser or file manager and allow from this source.</span></li><li><b>6</b><span>Open the downloaded APK file and tap Install.</span></li></ol></div></div></section>
     <section class="container panel privacy"><div class="shield"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/></svg></div><div><h3>A note on privacy</h3><p>Kami uses cloud data to power real-time discovery. We delete all location history.</p></div></section>
     <section id="faq" class="container faq"><div class="section-kicker">FAQ</div><h2 class="section-title">Frequently Asked Questions</h2><div class="faq-list"><details><summary>What is Kami?</summary><p>Kami helps you discover interesting people in the physical spaces you already visit, like parks, gyms, cafés, events, conferences, and meetups. The goal is not more endless swiping. It is better context for real-world connection.</p></details><details><summary>Why does Kami ask for my Instagram?</summary><p>Your Instagram handle gives Kami a lightweight way to understand your public social context: interests, vibe, and potential conversation hooks. That helps the app make smarter introductions than “here is another random person nearby.”</p></details><details><summary>How does Kami know who’s around me?</summary><p>Kami uses your current location to understand what physical space you are in and whether other active users are nearby. It uses cloud services for discovery, but deletes location history so the product does not become a creepy little breadcrumb museum.</p></details><details><summary>What happens when there is someone worth meeting?</summary><p>Kami can notify you when someone nearby looks relevant or interesting. From there, you can review the context, decide whether it is worth engaging, and start a real conversation if the moment makes sense.</p></details><details><summary>Is my data secure?</summary><p>Kami uses cloud infrastructure because real-time discovery requires it. We keep the privacy promise narrow and honest: location history is deleted, and the product is designed around timely nearby context rather than long-term location tracking.</p></details><details><summary>When will iOS be available?</summary><p>Android is the first test platform. iOS is planned, but the immediate focus is getting the Android beta into users’ hands and learning quickly from real-world usage.</p></details></div></section>
   </main>
-  <footer><div class="container footer-grid"><div><div class="brand-logo footer"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></div><p>Meet people.<br />In more places.</p></div><div><h4>Product</h4><a href="#how-it-works">How It Works</a><a href="#download">Download</a></div><div><h4>Company</h4><a href="#">About</a></div><div><h4>Support</h4><a href="#faq">FAQ</a><a href="#">Contact</a></div><div><a href="#download" class="btn secondary">Download Kami</a></div></div><div class="copyright">© 2025 Kami. All rights reserved.</div></footer>
+  <footer><div class="container footer-grid"><div><div class="brand-logo footer"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></div><p>Meet people.<br />In more places.</p></div><div><a href="#download" class="btn secondary">Download Kami</a></div></div><div class="copyright">© 2025 Kami. All rights reserved.</div></footer>
+
 
 <script>
 async function loadLatestApk() {
+  const fallbackUrl = "#";
+
   try {
     const repo = "BDecker19/kami-android-releases";
+    const response = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+      headers: { "Accept": "application/vnd.github+json" }
+    });
 
-    const response = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
+    if (!response.ok) {
+      throw new Error(`GitHub release fetch failed: ${response.status}`);
+    }
+
     const release = await response.json();
+    const apk = (release.assets || []).find(asset => asset.name && asset.name.toLowerCase().endsWith(".apk"));
 
-    if (!release.assets || !release.assets.length) return;
+    if (!apk) {
+      throw new Error("No APK asset found on latest release.");
+    }
 
-    const apk = release.assets.find(asset => asset.name.endsWith(".apk"));
-    if (!apk) return;
+    const version = release.tag_name || apk.name.replace(/\.apk$/i, "");
+    const sizeMb = `${(apk.size / 1024 / 1024).toFixed(1)} MB`;
 
     const versionEl = document.getElementById("apk-version");
     const sizeEl = document.getElementById("apk-size");
     const downloadEl = document.getElementById("apk-download");
 
-    if (versionEl) versionEl.textContent = release.tag_name;
-    if (sizeEl) sizeEl.textContent = `${(apk.size / 1024 / 1024).toFixed(1)} MB`;
-    if (downloadEl) downloadEl.href = apk.browser_download_url;
+    if (versionEl) versionEl.textContent = `${version}.apk`;
+    if (sizeEl) sizeEl.textContent = sizeMb;
+    if (downloadEl) downloadEl.href = apk.browser_download_url || fallbackUrl;
 
   } catch (err) {
     console.error("Failed to load APK metadata", err);
+
+    const versionEl = document.getElementById("apk-version");
+    const sizeEl = document.getElementById("apk-size");
+    const downloadEl = document.getElementById("apk-download");
+
+    if (versionEl) versionEl.textContent = "Latest APK";
+    if (sizeEl) sizeEl.textContent = "Unavailable";
+    if (downloadEl) downloadEl.href = fallbackUrl;
   }
 }
 
