@@ -232,7 +232,7 @@ async function loadLatestApk() {
     const sizeEl = document.getElementById("apk-size");
     const downloadEl = document.getElementById("apk-download");
 
-    if (versionEl) versionEl.textContent = apk.name;
+    if (versionEl) versionEl.textContent = apk.name.replace(/\.apk$/i, "");
     if (sizeEl) sizeEl.textContent = sizeMb;
 
     if (downloadEl) {
