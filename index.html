@@ -182,6 +182,41 @@
       background: rgba(255,255,255,.035);
       box-shadow: none;
     }
+  
+    .download-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+      width: min(420px, calc(100% - 32px));
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(15, 20, 40, .94);
+      border: 1px solid rgba(165, 107, 255, .38);
+      box-shadow: 0 18px 55px rgba(0,0,0,.45), 0 0 30px rgba(124,77,255,.22);
+      color: #f7f3ff;
+      text-align: center;
+      font-weight: 800;
+      backdrop-filter: blur(14px);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .download-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .download-toast small {
+      display: block;
+      margin-top: 5px;
+      color: #aeb6d3;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
   </style>
 </head>
 <body>
@@ -203,12 +238,35 @@
 
 
 <script>
+let latestApkUrl = null;
+
+function showDownloadToast() {
+  const toast = document.getElementById("download-toast");
+  if (!toast) return;
+
+  toast.classList.add("show");
+  window.setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3600);
+}
+
+function startApkDownload(url) {
+  showDownloadToast();
+
+  const iframe = document.createElement("iframe");
+  iframe.style.display = "none";
+  iframe.src = url;
+  document.body.appendChild(iframe);
+
+  window.setTimeout(() => {
+    iframe.remove();
+  }, 120000);
+}
+
 async function loadLatestApk() {
   try {
     const repo = "BDecker19/kami-android-releases";
 
-    // Important: /releases/latest ignores pre-releases. We are using beta/pre-release builds,
-    // so fetch all releases and pick the newest one with an APK asset.
     const response = await fetch(`https://api.github.com/repos/${repo}/releases`, {
       headers: { "Accept": "application/vnd.github+json" }
     });
@@ -225,21 +283,28 @@ async function loadLatestApk() {
     }
 
     const apk = release.assets.find(asset => asset.name && asset.name.toLowerCase().endsWith(".apk"));
-    const version = release.tag_name || apk.name.replace(/\.apk$/i, "");
     const sizeMb = `${(apk.size / 1024 / 1024).toFixed(1)} MB`;
 
     const versionEl = document.getElementById("apk-version");
     const sizeEl = document.getElementById("apk-size");
     const downloadEl = document.getElementById("apk-download");
 
+    latestApkUrl = apk.browser_download_url;
+
     if (versionEl) versionEl.textContent = apk.name.replace(/\.apk$/i, "");
     if (sizeEl) sizeEl.textContent = sizeMb;
 
     if (downloadEl) {
-      downloadEl.href = apk.browser_download_url;
+      downloadEl.href = latestApkUrl;
       downloadEl.removeAttribute("aria-disabled");
-      downloadEl.target = "_blank";
-      downloadEl.rel = "noopener";
+      downloadEl.removeAttribute("target");
+      downloadEl.removeAttribute("rel");
+
+      downloadEl.addEventListener("click", function(event) {
+        if (!latestApkUrl) return;
+        event.preventDefault();
+        startApkDownload(latestApkUrl);
+      });
     }
 
   } catch (err) {
@@ -261,6 +326,12 @@ async function loadLatestApk() {
 
 loadLatestApk();
 </script>
+
+
+  <div id="download-toast" class="download-toast" role="status" aria-live="polite">
+    Download starting...
+    <small>If Android asks for permission, allow the APK download.</small>
+  </div>
 
 </body>
 </html>
