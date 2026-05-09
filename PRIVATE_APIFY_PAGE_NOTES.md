@@ -1,8 +1,8 @@
-# Private Android Test Page
+# Private Beta Test Page
 
 Added route/page:
 
-- `private-apify.html`
+- `beta.html`
 
 Password:
 
