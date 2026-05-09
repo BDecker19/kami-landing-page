@@ -175,7 +175,7 @@
               <path d="M32 35c3-20 34-20 38 1-8-8-26-8-38-1z" fill="#1d1324"/>
             </svg>
           </div>
-          <div><strong id="invite-name">benji</strong> invited you to join Kami<br />Discover events, places, and real-time activity in your immediate vicinity.</div>
+          <div><strong id="invite-name">Loading</strong> invited you to join Kami<br />Discover events, places, and real-time activity in your immediate vicinity.</div>
         </div>
         <div class="store-row">
           <a class="google-play" href="https://play.google.com/store/apps/details?id=com.kami.mvp" aria-label="Get Kami on Google Play">
@@ -291,6 +291,7 @@
       if (avatarUrl && inviteAvatar) {
         inviteAvatar.innerHTML = "";
         const img = document.createElement("img");
+        img.referrerPolicy = "no-referrer";
         img.referrerPolicy = "no-referrer";
         img.src = avatarUrl;
         img.alt = displayName || "Kami inviter";
