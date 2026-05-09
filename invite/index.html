@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="invite-loading">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +16,7 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    .invite-loading body { opacity: 0; }
     body {
       margin: 0;
       min-height: 100vh;
@@ -256,7 +257,7 @@
   function readInviteCode() {
     const pathMatch = window.location.pathname.match(/^\/invite\/([^/?#]+)/i);
     const params = new URLSearchParams(window.location.search);
-    return normalizeInviteCode((pathMatch && pathMatch[1]) || params.get("code") || "friend");
+    return normalizeInviteCode((pathMatch && pathMatch[1]) || params.get("code") || "");
   }
 
   const code = readInviteCode();
@@ -264,10 +265,8 @@
   const inviteAvatar = document.getElementById("invite-avatar");
   const openKami = document.getElementById("open-kami");
 
-  if (inviteName) inviteName.textContent = code;
+  if (!code) window.location.replace("/");
   if (openKami) openKami.href = `kami://invite/${encodeURIComponent(code)}`;
-
-  document.title = `Kami | Invite from ${code}`;
 
   async function hydrateInviteProfile() {
     try {
@@ -292,6 +291,7 @@
       if (avatarUrl && inviteAvatar) {
         inviteAvatar.innerHTML = "";
         const img = document.createElement("img");
+        img.referrerPolicy = "no-referrer";
         img.src = avatarUrl;
         img.alt = displayName || "Kami inviter";
         img.style.width = "100%";
@@ -299,8 +299,10 @@
         img.style.objectFit = "cover";
         inviteAvatar.appendChild(img);
       }
+
+      document.documentElement.classList.remove("invite-loading");
     } catch {
-      // Keep the invite-code fallback if the public profile lookup fails.
+      window.location.replace("/");
     }
   }
 
