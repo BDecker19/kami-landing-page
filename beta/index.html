@@ -99,6 +99,69 @@ transform: translateY(-2px);
   stroke-linejoin:round !important;
 }
 
+
+.download-confirmation{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(3,5,14,.68);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.download-confirmation.is-visible{
+  display:flex;
+}
+.download-confirmation-card{
+  width:min(480px,100%);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139,92,255,.24), transparent 38%),
+    linear-gradient(180deg, rgba(19,25,48,.98), rgba(8,13,28,.98));
+  box-shadow:0 30px 100px rgba(0,0,0,.55), 0 0 80px rgba(139,92,255,.22);
+  padding:28px;
+  text-align:center;
+}
+.download-confirmation-icon{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 18px;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  color:white;
+  box-shadow:0 18px 45px rgba(87,73,255,.32);
+}
+.download-confirmation-card h2{
+  margin:0 0 10px;
+  font-size:28px;
+  letter-spacing:-.7px;
+}
+.download-confirmation-card p{
+  margin:0 auto 20px;
+  color:#cbd1e7;
+  line-height:1.55;
+  max-width:380px;
+}
+.download-confirmation-actions{
+  display:grid;
+  gap:12px;
+}
+.download-confirmation-actions .btn{
+  width:100%;
+}
+.download-confirmation-close{
+  background:rgba(255,255,255,.055) !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+}
+
 </style>
 </head>
 <body class="locked">
@@ -129,6 +192,21 @@ transform: translateY(-2px);
       <div class="footer-col"><h4>Legal</h4><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div>
       <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@kamisocial.com"><strong>hello@kamisocial.com</strong></a></div>
     </div><div class="copyright">© 2026 Kami Social. All rights reserved.</div></footer>
+
+
+  <div class="download-confirmation" id="downloadConfirmation" role="dialog" aria-modal="true" aria-labelledby="downloadConfirmationTitle">
+    <div class="download-confirmation-card">
+      <div class="download-confirmation-icon">
+        <svg class="icon-lg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2 id="downloadConfirmationTitle">Download started</h2>
+      <p>Your APK should now be downloading in the background. Check your browser downloads or Android Downloads folder.</p>
+      <div class="download-confirmation-actions">
+        <button class="btn download-confirmation-close" id="downloadConfirmationClose" type="button">Got it</button>
+        <a class="btn secondary" id="downloadFallbackLink" href="https://github.com/BDecker19/kami-android-test-versions/releases" target="_blank" rel="noopener">Open builds page</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     const TEST_PAGE_PASSWORD="KamiFTW123";const GITHUB_OWNER="BDecker19";const GITHUB_REPO="kami-android-test-versions";const RELEASES_API_URL=`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;const passwordForm=document.getElementById("passwordForm"),passwordInput=document.getElementById("passwordInput"),passwordError=document.getElementById("passwordError"),downloadBtn=document.getElementById("downloadBtn"),downloadBtnText=document.getElementById("downloadBtnText"),versionText=document.getElementById("versionText"),dateText=document.getElementById("dateText"),fileSizeText=document.getElementById("fileSizeText");function unlockPage(){document.body.classList.remove("locked");document.body.classList.add("unlocked");sessionStorage.setItem("kamiPrivateTestUnlocked","true")}if(sessionStorage.getItem("kamiPrivateTestUnlocked")==="true")unlockPage();passwordForm.addEventListener("submit",e=>{e.preventDefault();passwordInput.value===TEST_PAGE_PASSWORD?unlockPage():passwordError.textContent="Wrong password. Try again or contact the Kami team."});function formatBytes(b){return!b||Number.isNaN(b)?"Unknown":`${(b/(1024*1024)).toFixed(1)} MB`}function formatDate(d){return d?new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",year:"numeric"}).format(new Date(d)):"Unknown"}function setFallbackState(){downloadBtn.href=`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases`;downloadBtn.removeAttribute("aria-disabled");downloadBtnText.textContent="Open latest test builds";versionText.textContent="Check releases";dateText.textContent="Could not auto-load";fileSizeText.textContent="Unknown"}async function loadLatestBuild(){try{const r=await fetch(`${RELEASES_API_URL}?per_page=10`,{headers:{Accept:"application/vnd.github+json"},cache:"no-store"});if(!r.ok)throw new Error(`Release lookup failed: ${r.status}`);const releases=await r.json();const rel=releases.find(x=>!x.draft&&Array.isArray(x.assets)&&x.assets.some(a=>a.name&&a.name.toLowerCase().endsWith(".apk")));if(!rel)throw new Error("No published release with an APK asset found.");const apk=rel.assets.find(a=>a.name.toLowerCase().endsWith(".apk"));downloadBtn.href=apk.browser_download_url;downloadBtn.removeAttribute("aria-disabled");downloadBtnText.textContent="Download Private APK";versionText.textContent=rel.tag_name||rel.name||"Latest beta";dateText.textContent=formatDate(rel.published_at||rel.created_at);fileSizeText.textContent=formatBytes(apk.size)}catch(e){console.error(e);setFallbackState()}}loadLatestBuild();
