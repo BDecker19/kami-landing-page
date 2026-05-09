@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works | Kami</title>
+  <meta name="description" content="How Kami works: real-world social awareness, presence, privacy controls, and meaningful notifications." />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{--bg:#05040d;--panel:#0b1022;--text:#f7f3ff;--muted:#a9b0c8;--purple:#7c4dff;--purple2:#a56bff;--pink:#ff3ea5;--line:rgba(255,255,255,.10);--shadow:0 24px 80px rgba(0,0,0,.45)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 15% 0%,rgba(124,77,255,.28),transparent 32%),radial-gradient(circle at 82% 12%,rgba(255,62,165,.16),transparent 28%),linear-gradient(180deg,#040711 0%,#071020 48%,#050814 100%);min-height:100vh} a{color:inherit;text-decoration:none} .container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(5,8,20,.78);border-bottom:1px solid rgba(255,255,255,.06)} .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between} .brand-logo{display:inline-flex;align-items:center;line-height:1;text-decoration:none} .wordmark-img{display:block;width:132px;height:auto;object-fit:contain;filter:drop-shadow(0 0 18px rgba(124,77,255,.22))} .footer-wordmark{width:132px} .nav-links{display:flex;gap:34px;align-items:center;color:#dfe4fb;font-weight:650;font-size:14px} .nav-links a:hover{color:#fff} .btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 22px;background:linear-gradient(135deg,var(--purple),#315eff);font-weight:850;box-shadow:0 12px 32px rgba(87,73,255,.28);cursor:pointer;color:#fff;text-decoration:none;transition:transform .18s ease,filter .18s ease} .btn:hover{transform:translateY(-2px);filter:brightness(1.08)} .btn.secondary{background:transparent;box-shadow:none}
+    .hero{display:grid;grid-template-columns:.92fr 1.08fr;gap:44px;align-items:center;padding:54px 0 42px} .eyebrow{display:inline-flex;padding:8px 18px;border-radius:999px;border:1px solid rgba(158,94,255,.38);background:rgba(89,45,192,.18);color:#d8baff;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:900;margin-bottom:24px} h1{margin:0;font-size:clamp(52px,7vw,92px);line-height:.95;letter-spacing:-.07em} .gradient-text{background:linear-gradient(135deg,var(--purple2),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent} .hero h2{margin:18px 0 20px;font-size:clamp(24px,3vw,38px);line-height:1.1;letter-spacing:-.04em} .hero p{margin:0;color:#c8bfd8;font-size:18px;line-height:1.72;max-width:560px} .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px} .hero-art{border-radius:34px;overflow:hidden;border:1px solid rgba(158,94,255,.32);box-shadow:var(--shadow);background:rgba(9,7,26,.7)} .hero-art img{width:100%;display:block}
+    .section{border:1px solid rgba(158,94,255,.32);background:linear-gradient(180deg,rgba(20,13,48,.82),rgba(8,6,24,.74));border-radius:24px;padding:28px;margin:18px 0;box-shadow:0 18px 60px rgba(0,0,0,.22)} .section.hot{border-color:rgba(255,62,165,.42)} .section-head{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;margin-bottom:24px} .number{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:20px;background:linear-gradient(135deg,var(--purple),var(--pink))} .section h3{margin:0;font-size:26px;letter-spacing:-.04em;text-transform:uppercase} .section-lede{margin:6px 0 0;color:#c8bfd8;font-size:15px;line-height:1.55} .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px} .grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px} .card{border:1px solid rgba(158,94,255,.24);background:rgba(255,255,255,.035);border-radius:20px;padding:22px;min-height:100%} .icon{width:42px;height:42px;color:var(--purple2);margin-bottom:16px;filter:drop-shadow(0 0 14px rgba(141,76,255,.45))} .pink-icon{color:#ff6ac7} .card h4{margin:0 0 10px;font-size:17px;color:#e4d7ff} .card p,.card li{margin:0;color:#c8bfd8;font-size:14px;line-height:1.55}
+    .comparison{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center} .arrow-orb{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--pink))} ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:10px} .check,.xmark{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start} .check i,.xmark i{width:18px;height:18px;margin-top:1px} .check i{color:var(--purple2)} .xmark i{color:#9588aa}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:stretch} .flow-item{text-align:center;position:relative} .flow-item:not(:last-child)::after{content:"→";position:absolute;right:-15px;top:38px;color:var(--purple2);font-size:24px} .flow-icon{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(158,94,255,.32);background:rgba(255,255,255,.035)} .flow-icon i{width:34px;height:34px;color:var(--purple2)} .notification-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px} .notification{display:grid;gap:12px;padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.04);min-height:150px} .notification span{color:#c8bfd8;font-size:13px;line-height:1.45}
+    .mobile-story{display:none;margin:18px 0 28px} .mobile-story-grid{display:grid;gap:16px} .mobile-story-card{border:1px solid rgba(158,94,255,.34);background:linear-gradient(180deg,rgba(20,13,48,.88),rgba(8,6,24,.78));border-radius:24px;padding:14px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.28)} .mobile-story-art{display:block;width:100%;height:auto;border-radius:18px;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px rgba(0,0,0,.34);background:#05040d} .mobile-story-copy{padding:18px 6px 6px} .mobile-story-kicker{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;background:linear-gradient(135deg,var(--purple),var(--pink));font-weight:900;margin-bottom:12px} .mobile-story-copy h3{margin:0 0 8px;font-size:26px;line-height:1.04;letter-spacing:-.05em} .mobile-story-copy p{margin:0;color:#c8bfd8;line-height:1.58;font-size:15px}
+    .cta{display:grid;grid-template-columns:1fr auto auto;gap:22px;align-items:center;padding:30px;border-radius:26px;border:1px solid rgba(158,94,255,.36);background:linear-gradient(135deg,rgba(101,54,230,.34),rgba(255,62,172,.12));margin-top:22px} .cta h3{margin:0 0 8px;font-size:26px;letter-spacing:-.04em} .cta p{margin:0;color:#c8bfd8} footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(2,4,12,.55);padding:44px 0 24px;margin-top:42px} .copyright{text-align:center;color:#778099;margin-top:36px}
+    .footer-columns{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;align-items:start;text-align:left;width:100%}
+        .footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+        .footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+        .footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+        .footer-col a:hover{color:#fff}
+        @media(max-width:760px){.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px;text-align:left}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}}
+
+    @media(max-width:980px){.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:32px}.hero-art, main > .section{display:none}.mobile-story{display:block}.cta{grid-template-columns:1fr}.grid-4,.grid-5,.flow,.notification-grid,.comparison{grid-template-columns:1fr}.flow-item:not(:last-child)::after{display:none}}
+    @media(max-width:560px){.container{width:min(100% - 26px,1180px)}.hero-actions{flex-direction:column}.btn{width:100%}}
+  
+    /* footer distribution fix */
+    footer .footer-columns{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;align-items:start;text-align:left;width:100%}
+    @media(max-width:760px){footer .footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px}footer .footer-brand{grid-column:1/-1}}
+  
+    .nav-container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    #how-it-works,#download,#faq,.scroll-anchor{scroll-margin-top:112px}
+    .footer-columns{display:grid;grid-template-columns:1.35fr 1fr 1fr 1.1fr auto;gap:34px;align-items:start;text-align:left;width:min(1180px,calc(100% - 48px));margin:0 auto}
+    .footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+    .footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+    .footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+    .footer-col a:hover{color:#fff}
+    .footer-download{display:inline-flex!important;color:#fff!important;margin-top:4px!important;padding:12px 18px!important;white-space:nowrap}
+    .learn-more-wrap{text-align:center;margin-top:28px}
+    .learn-more-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.035);color:#fff;font-weight:850;box-shadow:none;text-decoration:none}
+    .learn-more-link:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
+    @media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px;width:min(100% - 28px,1180px)}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}.footer-download{width:100%;text-align:center}}
+
+  
+/* final nav/footer alignment */
+.nav-container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-links{display:flex;gap:34px;align-items:center;color:#dfe4fb;font-weight:650;font-size:14px}
+.nav-links a:hover{color:#fff}
+.footer-columns{display:grid!important;grid-template-columns:1.25fr 1fr 1fr 1.05fr auto!important;gap:34px!important;align-items:start!important;text-align:left!important;width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+.footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+.footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+.footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-download{display:inline-flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;margin-top:4px!important;padding:14px 22px!important;white-space:nowrap!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;font-weight:850!important}
+#how-it-works,#download,#faq,.scroll-anchor{scroll-margin-top:112px}
+@media(max-width:980px){.nav-links{display:none}}
+@media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 34px!important;width:min(100% - 28px,1180px)!important}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}.footer-download{width:100%;max-width:220px}}
+
+
+/* how-it-works final mobile crop/title fixes */
+h1{overflow:visible;padding-bottom:.08em;line-height:1.04}
+.hero{overflow:hidden}
+@media(max-width:980px){
+  .hero{overflow:visible}
+  .hero h1{font-size:clamp(42px,14vw,64px);line-height:1.05;letter-spacing:-.055em;max-width:100%}
+  .mobile-story-grid{gap:18px}
+  .mobile-story-card{padding:12px;border-radius:22px}
+  .mobile-story-art{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    object-position:top center;
+    border-radius:16px;
+    display:block;
+  }
+  .mobile-story-copy{padding:14px 4px 4px}
+  .mobile-story-copy h3{font-size:22px;line-height:1.08;letter-spacing:-.04em}
+  .mobile-story-copy p{font-size:14px;line-height:1.5}
+}
+@media(max-width:560px){
+  .mobile-story-art{height:218px}
+  .mobile-story-card{padding:10px}
+  .mobile-story-kicker{width:30px;height:30px;margin-bottom:10px}
+}
+
+
+/* visual card image polish */
+@media(max-width:980px){
+  .mobile-story-art{
+    width:100%;
+    height:auto!important;
+    max-height:none!important;
+    aspect-ratio:3/2;
+    object-fit:cover;
+    object-position:center center;
+    border-radius:16px;
+  }
+  .mobile-story-card{max-width:520px;margin:0 auto;width:100%}
+}
+@media(max-width:560px){
+  .mobile-story-card{max-width:100%}
+}
+
+
+/* final how-it-works polish */
+.hero h1{font-size:clamp(46px,6.6vw,82px)!important;line-height:1.04!important;letter-spacing:-.065em!important;padding-bottom:.08em!important;overflow:visible!important}
+.hero-art{min-height:420px!important}
+.hero-art img{min-height:420px!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+@media(max-width:980px){
+  .hero h1{font-size:clamp(40px,13vw,62px)!important;line-height:1.06!important;letter-spacing:-.055em!important}
+  .mobile-story-card{max-width:520px;margin:0 auto;width:100%;padding:10px!important}
+  .mobile-story-art{width:100%;height:auto!important;aspect-ratio:3/2;object-fit:cover;object-position:center center;border-radius:16px}
+}
+
+
+/* exact shared top nav */
+nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filter:blur(18px)!important;background:rgba(5,8,20,.78)!important;border-bottom:1px solid rgba(255,255,255,.06)!important}
+.nav-container{width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+.nav-inner{height:76px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:24px!important}
+.wordmark-img{display:block!important;width:132px!important;height:auto!important;object-fit:contain!important;filter:drop-shadow(0 0 18px rgba(124,77,255,.22))!important}
+.nav-links{display:flex!important;gap:34px!important;align-items:center!important;color:#dfe4fb!important;font-weight:650!important;font-size:14px!important;line-height:1!important}
+.nav-links a{color:#dfe4fb!important;text-decoration:none!important;margin:0!important;padding:0!important}
+.nav-links a:hover{color:#fff!important}
+.btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;padding:14px 22px!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;font-weight:850!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;color:#fff!important;text-decoration:none!important;line-height:1!important;cursor:pointer!important}
+.footer-download{display:inline-flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;margin-top:4px!important;padding:14px 22px!important;white-space:nowrap!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;font-weight:850!important}
+@media(max-width:980px){.nav-links{display:none!important}}
+@media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)!important}}
+
+
+/* r6 polish */
+.hero-art{
+  overflow:hidden!important;
+  min-height:420px!important;
+  background:radial-gradient(circle at center, rgba(124,77,255,.22), transparent 65%)!important;
+}
+.hero-art img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  transform:scale(1.01)!important;
+}
+@media(max-width:980px){
+  .mobile-story-art{
+    aspect-ratio:auto!important;
+    height:auto!important;
+    max-height:none!important;
+    object-fit:contain!important;
+    border-radius:18px!important;
+    background:#090714!important;
+  }
+}
+
+
+/* r7 overview link + exact hero crop */
+.overview-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:0 24px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+  color:#f3efff;
+  text-decoration:none;
+  font-weight:800;
+  transition:all .22s ease;
+  backdrop-filter:blur(12px);
+}
+.overview-link:hover{
+  background:rgba(255,255,255,.055);
+  border-color:rgba(194,170,255,.32);
+  transform:translateY(-1px);
+}
+.hero-art{
+  background:radial-gradient(circle at center, rgba(124,77,255,.20), transparent 70%)!important;
+}
+.hero-art img{
+  object-fit:cover!important;
+  object-position:center center!important;
+  transform:none!important;
+}
+
+
+/* r8 mobile hamburger nav */
+.mobile-menu-toggle{
+  display:none;
+  width:46px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.045);
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+}
+.mobile-menu-toggle span{
+  display:block;
+  width:21px;
+  height:2px;
+  border-radius:999px;
+  background:#f7f3ff;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.mobile-menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mobile-menu-toggle.open span:nth-child(2){opacity:0}
+.mobile-menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  width:min(1180px,calc(100% - 48px));
+  margin:0 auto 14px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:rgba(10,13,30,.96);
+  box-shadow:0 18px 52px rgba(0,0,0,.36),0 0 28px rgba(124,77,255,.16);
+  backdrop-filter:blur(18px);
+}
+.mobile-menu a{
+  display:block;
+  color:#dfe4fb;
+  text-decoration:none;
+  font-weight:750;
+  padding:13px 12px;
+  border-radius:12px;
+}
+.mobile-menu a:hover{background:rgba(255,255,255,.055);color:#fff}
+.mobile-menu .mobile-download{
+  display:flex!important;
+  margin-top:8px;
+  color:#fff!important;
+}
+@media(max-width:980px){
+  .nav-download{display:none!important}
+  .mobile-menu-toggle{display:flex!important}
+}
+@media(min-width:981px){
+  .mobile-menu{display:none!important}
+}
+@media(max-width:760px){
+  .mobile-menu{width:min(100% - 28px,1180px)}
+}
+
+
+/* r9 hero crop + bottom CTA polish */
+.hero-art{
+  min-height:420px!important;
+  overflow:hidden!important;
+}
+.hero-art img{
+  width:100%!important;
+  height:100%!important;
+  min-height:420px!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  transform:none!important;
+}
+.cta{
+  grid-template-columns:1fr auto!important;
+}
+.cta .btn{
+  display:none!important;
+}
+.cta-download{
+  min-width:210px;
+  min-height:54px;
+}
+@media(max-width:980px){
+  .hero-art{display:none!important}
+  .cta{grid-template-columns:1fr!important}
+  .cta-download{width:100%}
+}
+
+
+/* r10 scroll + side-only hero crop */
+#mobile-overview,#overview{scroll-margin-top:104px}
+.hero-art{
+  min-height:420px!important;
+  max-height:520px!important;
+  background:#080616!important;
+}
+.hero-art img{
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:#080616!important;
+}
+@media(max-width:980px){
+  #mobile-overview{scroll-margin-top:92px}
+}
+
+
+/* r14 smaller/tighter mobile visual cards */
+@media(max-width:980px){
+  .mobile-story-card{
+    padding:12px!important;
+  }
+
+  .mobile-story-art{
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:460px!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    border-radius:14px!important;
+    background:#090714!important;
+  }
+
+  .mobile-story-copy{
+    padding-top:10px!important;
+  }
+}
+
+
+/* r15 mobile carousel experiment */
+.mobile-carousel-controls{
+  display:none;
+}
+
+@media(max-width:980px){
+  .mobile-story{
+    overflow:hidden;
+  }
+
+  .mobile-story-grid{
+    display:flex!important;
+    gap:0!important;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 auto;
+    max-width:560px;
+  }
+
+  .mobile-story-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  .mobile-story-card{
+    flex:0 0 100%;
+    scroll-snap-align:center;
+    margin:0!important;
+    max-width:100%!important;
+    width:100%!important;
+  }
+
+  .mobile-carousel-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin:18px 0 6px;
+  }
+
+  .carousel-btn{
+    width:42px;
+    height:42px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.045);
+    color:#f7f3ff;
+    font-size:30px;
+    line-height:1;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    box-shadow:0 10px 28px rgba(0,0,0,.22);
+  }
+
+  .carousel-btn:active{
+    transform:scale(.96);
+  }
+
+  .carousel-dots{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-width:104px;
+  }
+
+  .carousel-dot{
+    width:8px;
+    height:8px;
+    border-radius:999px;
+    border:0;
+    padding:0;
+    background:rgba(255,255,255,.28);
+    cursor:pointer;
+    transition:width .18s ease, background .18s ease, transform .18s ease;
+  }
+
+  .carousel-dot.active{
+    width:24px;
+    background:linear-gradient(135deg,#8d4cff,#ff3ea5);
+  }
+}
+
+
+/* r16 infographic + full-bleed carousel polish */
+.how-it-works-infographic{
+  display:none;
+}
+
+@media(max-width:980px){
+  .how-it-works-infographic{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin:28px auto 22px;
+    padding:0 12px;
+  }
+}
+
+.how-it-works-infographic-image{
+  width:100%;
+  max-width:760px;
+  display:block;
+  border-radius:28px;
+  border:1px solid rgba(168,85,247,.36);
+  box-shadow:
+    0 0 60px rgba(168,85,247,.14),
+    0 0 120px rgba(236,72,153,.08),
+    0 22px 70px rgba(0,0,0,.32);
+}
+
+@media(max-width:980px){
+  .how-it-works-infographic{
+    margin:28px auto 22px;
+    padding:0 12px;
+  }
+
+  .how-it-works-infographic-image{
+    border-radius:20px;
+  }
+
+  .mobile-story-card{
+    padding:10px!important;
+    overflow:hidden!important;
+  }
+
+  .mobile-story-art{
+    width:100%!important;
+    height:360px!important;
+    max-height:none!important;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    transform:scale(1.04)!important;
+    border-radius:18px!important;
+    display:block!important;
+    background:#090714!important;
+  }
+
+  .mobile-story-copy{
+    padding:14px 6px 6px!important;
+  }
+}
+
+@media(max-width:560px){
+  .mobile-story-art{
+    height:330px!important;
+    transform:scale(1.055)!important;
+  }
+}
+
+</style>
+</head>
+<body>
+  <nav><div class="nav-container nav-inner"><a href="index.html" class="brand-logo" aria-label="Kami home"><img class="wordmark-img" src="assets/logo-wordmark.png" alt="Kami" /></a><div class="nav-links"><a href="index.html#top">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div><a href="index.html#download" class="btn nav-download">Download Kami</a><button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div><div id="mobile-menu" class="mobile-menu" hidden><a href="index.html#top">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="index.html#download" class="btn mobile-download">Download Kami</a></div></nav>
+  <main class="container">
+    <section class="hero">
+      <div><div class="eyebrow">How It Works</div><h1>Real Awareness.<br><span class="gradient-text">Real Moments.</span></h1><h2>A simple guide to Kami.</h2><p>Kami is a social awareness layer for real life. We help you stay in the loop with the people, places, and events around you, without the noise.</p><div class="hero-actions"><a class="btn" href="index.html#download">Download Kami</a><a class="overview-link" href="#overview" data-mobile-target="#mobile-overview">Read the overview</a></div></div>
+      <div class="hero-art"><img src="assets/how-it-works-hero-crop-r10.png" alt="Kami app preview showing nearby people, places, and moments" /></div>
+    </section>
+
+    <section class="how-it-works-infographic" aria-label="How Kami Works infographic">
+      <img
+        src="assets/how-it-works-infographic.png"
+        alt="How Kami Works infographic showing Kami's real-world awareness flow"
+        class="how-it-works-infographic-image"
+      />
+    </section>
+
+    <section id="mobile-overview" class="mobile-story" aria-label="How Kami Works mobile summary"><div class="mobile-story-grid">
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-1.png" alt="How Kami Works panel 1" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">1</span><h3>What Kami Actually Is</h3><p>A social awareness layer for real life. See what’s happening around you so you can coordinate and show up.</p></div></article>
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-2.png" alt="How Kami Works panel 2" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">2</span><h3>Why It Feels Different</h3><p>Most apps compete for attention. Kami helps you spend attention with the people and places that matter.</p></div></article>
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-3.png" alt="How Kami Works panel 3" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">3</span><h3>How Presence Works</h3><p>With permission, Kami uses location to surface nearby friends, places, overlap, notifications, and action.</p></div></article>
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-4.png" alt="How Kami Works panel 4" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">4</span><h3>Privacy + Control</h3><p>Opt in, use Ghost Mode, pause anytime, and choose friends, close friends, or no one.</p></div></article>
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-5.png" alt="How Kami Works panel 5" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">5</span><h3>Why Notifications Matter</h3><p>Kami notifies you about real moments, not content for content’s sake. Less doomscrolling, more showing up.</p></div></article>
+      <article class="mobile-story-card"><img class="mobile-story-art" src="assets/how-it-works-visual-6.png" alt="How Kami Works panel 6" loading="lazy" /><div class="mobile-story-copy"><span class="mobile-story-kicker">6</span><h3>What Kami Becomes</h3><p>As more people and places join, Kami becomes a real-time pulse for your city.</p></div></article>
+    </div>
+      <div class="mobile-carousel-controls" aria-label="How Kami Works carousel controls">
+        <button class="carousel-btn carousel-prev" type="button" aria-label="Previous slide">‹</button>
+        <div class="carousel-dots" aria-label="Slide navigation"></div>
+        <button class="carousel-btn carousel-next" type="button" aria-label="Next slide">›</button>
+      </div>
+    </section>
+    <section class="section" id="overview"><div class="section-head"><div class="number">1</div><div><h3>What Kami Actually Is</h3><p class="section-lede">A real-world social awareness layer. Less feed. More presence.</p></div></div><div class="grid-4"><article class="card"><i class="icon" data-lucide="users"></i><h4>Passive awareness</h4><p>Kami works quietly in the background so you can stay loosely aware of friends and close friends.</p></article><article class="card"><i class="icon" data-lucide="bell-ring"></i><h4>Meaningful moments</h4><p>Get notified when something nearby is actually worth knowing about.</p></article><article class="card"><i class="icon" data-lucide="map-pin"></i><h4>Local and real-time</h4><p>Built around the places, events, and people near you right now.</p></article><article class="card"><i class="icon" data-lucide="lock-keyhole"></i><h4>You’re in control</h4><p>Your privacy, visibility, and presence settings are always yours.</p></article></div></section>
+    <section class="section hot"><div class="section-head"><div class="number">2</div><div><h3>Why It Feels Different</h3><p class="section-lede">Kami is optimized for participation, not passive scrolling.</p></div></div><div class="comparison"><div class="card"><h4>Most Apps</h4><ul class="clean"><li class="xmark"><i data-lucide="circle-x"></i><span>Endless scrolling</span></li><li class="xmark"><i data-lucide="circle-x"></i><span>Algorithmic noise</span></li><li class="xmark"><i data-lucide="circle-x"></i><span>Content overload</span></li></ul></div><div class="arrow-orb"><i data-lucide="arrow-right"></i></div><div class="card"><h4>Kami</h4><ul class="clean"><li class="check"><i data-lucide="circle-check"></i><span>Real-world awareness</span></li><li class="check"><i data-lucide="circle-check"></i><span>Purposeful notifications</span></li><li class="check"><i data-lucide="circle-check"></i><span>Local context</span></li></ul></div></div></section>
+    <section class="section"><div class="section-head"><div class="number">3</div><div><h3>How Presence Works</h3><p class="section-lede">Kami uses location with your permission to help people coordinate in real life.</p></div></div><div class="flow"><div class="flow-item"><div class="flow-icon"><i data-lucide="contact-round"></i></div><h4>People</h4><p>Your friends share optional real-time presence.</p></div><div class="flow-item"><div class="flow-icon"><i data-lucide="landmark"></i></div><h4>Places</h4><p>Venues and public places come alive with activity.</p></div><div class="flow-item"><div class="flow-icon"><i data-lucide="radar"></i></div><h4>Overlap</h4><p>Kami finds when people and places line up.</p></div><div class="flow-item"><div class="flow-icon"><i data-lucide="bell"></i></div><h4>Notifications</h4><p>You hear about moments worth showing up to.</p></div><div class="flow-item"><div class="flow-icon"><i data-lucide="sparkles"></i></div><h4>Action</h4><p>Meet up, join in, create plans, and make memories.</p></div></div></section>
+    <section class="section hot"><div class="section-head"><div class="number">4</div><div><h3>Privacy + Control</h3><p class="section-lede">Kami should feel useful, never creepy. That only works if control is obvious.</p></div></div><div class="grid-5"><article class="card"><i class="icon pink-icon" data-lucide="shield-check"></i><h4>Opt-in always</h4><p>You choose what to share and when.</p></article><article class="card"><i class="icon pink-icon" data-lucide="ghost"></i><h4>Ghost Mode</h4><p>Go invisible anytime.</p></article><article class="card"><i class="icon pink-icon" data-lucide="pause-circle"></i><h4>Pause anytime</h4><p>Take a break. Kami pauses with you.</p></article><article class="card"><i class="icon pink-icon" data-lucide="sliders-horizontal"></i><h4>Granular control</h4><p>Share with friends, close friends, or no one.</p></article><article class="card"><i class="icon pink-icon" data-lucide="rotate-ccw"></i><h4>Reversible</h4><p>Change your mind. We make it easy.</p></article></div></section>
+    <section class="section"><div class="section-head"><div class="number">5</div><div><h3>Why Notifications Matter</h3><p class="section-lede">Kami should notify you about real moments, not content for content’s sake.</p></div></div><div class="notification-grid"><div class="notification"><i class="icon pink-icon" data-lucide="heart"></i><strong>Your friend is nearby</strong><span>Alex is at Au Cheval, 2 minutes ago.</span></div><div class="notification"><i class="icon pink-icon" data-lucide="party-popper"></i><strong>Event is happening</strong><span>Rooftop Vibes is starting now.</span></div><div class="notification"><i class="icon pink-icon" data-lucide="map-pinned"></i><strong>Popular nearby</strong><span>6 friends are at Fulton Market right now.</span></div><div class="notification"><i class="icon pink-icon" data-lucide="calendar-check"></i><strong>You have plans</strong><span>Coffee run Saturday at 11:00.</span></div></div></section>
+    <section class="section hot"><div class="section-head"><div class="number">6</div><div><h3>What Kami Becomes Over Time</h3><p class="section-lede">The more people and places that join, the more useful Kami gets for everyone.</p></div></div><div class="grid-5"><article class="card"><i class="icon" data-lucide="building-2"></i><h4>City coordination</h4><p>A real-time pulse for your city.</p></article><article class="card"><i class="icon" data-lucide="network"></i><h4>Recurring overlap</h4><p>Find patterns. Build community.</p></article><article class="card"><i class="icon" data-lucide="badge-percent"></i><h4>Local utility</h4><p>Events, venues, creators, and more.</p></article><article class="card"><i class="icon" data-lucide="bar-chart-3"></i><h4>Stronger together</h4><p>Kami gets better as your city grows.</p></article><article class="card"><i class="icon pink-icon" data-lucide="heart-handshake"></i><h4>Real moments</h4><p>Real people. Real places. Real life.</p></article></div></section>
+    <section class="cta"><div><h3>Ready to experience awareness that feels human?</h3><p>Join friends, discover places, and never miss what matters around you.</p></div><a class="overview-link cta-download" href="index.html#download">Download Kami</a></section>
+  </main>
+  <footer><div class="nav-container footer-columns">
+      <div class="footer-brand"><a href="index.html" class="brand-logo footer" aria-label="Kami home"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></a><p>One city. Real people. Real moments.</p></div>
+      <div class="footer-col"><h4>About</h4><a href="index.html">Home</a><a href="how-it-works.html">How It Works</a><a href="index.html#faq">FAQ</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@kamisocial.com"><strong>hello@kamisocial.com</strong></a></div>
+      <div class="footer-col"><h4>Download</h4><a class="btn footer-download" href="index.html#download">Download Kami</a></div>
+    </div><div class="copyright">© 2026 Kami Social. All rights reserved.</div></footer>
+  <script>lucide.createIcons({attrs:{strokeWidth:1.8}});</script>
+
+<script>
+(function(){
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+
+  function closeMenu(){
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    menu.hidden = true;
+  }
+
+  toggle.addEventListener('click', function(){
+    const isOpen = toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    menu.hidden = !isOpen;
+  });
+
+  menu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 980) closeMenu();
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  document.querySelectorAll('[data-mobile-target]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      if (window.innerWidth <= 980) {
+        const target = document.querySelector(link.getAttribute('data-mobile-target'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  const grid = document.querySelector('.mobile-story-grid');
+  const cards = Array.from(document.querySelectorAll('.mobile-story-card'));
+  const dotsWrap = document.querySelector('.carousel-dots');
+  const prev = document.querySelector('.carousel-prev');
+  const next = document.querySelector('.carousel-next');
+
+  if (!grid || !cards.length || !dotsWrap || !prev || !next) return;
+
+  let active = 0;
+
+  function goTo(index){
+    active = Math.max(0, Math.min(cards.length - 1, index));
+    const card = cards[active];
+    grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior: 'smooth' });
+    updateDots();
+  }
+
+  function updateFromScroll(){
+    const gridCenter = grid.scrollLeft + grid.clientWidth / 2;
+    let closest = 0;
+    let closestDist = Infinity;
+
+    cards.forEach(function(card, index){
+      const center = card.offsetLeft - grid.offsetLeft + card.clientWidth / 2;
+      const dist = Math.abs(center - gridCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = index;
+      }
+    });
+
+    if (closest !== active) {
+      active = closest;
+      updateDots();
+    }
+  }
+
+  function updateDots(){
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(function(dot, index){
+      dot.classList.toggle('active', index === active);
+      dot.setAttribute('aria-current', index === active ? 'true' : 'false');
+    });
+  }
+
+  cards.forEach(function(_, index){
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Go to slide ' + (index + 1));
+    dot.addEventListener('click', function(){ goTo(index); });
+    dotsWrap.appendChild(dot);
+  });
+
+  prev.addEventListener('click', function(){ goTo(active - 1); });
+  next.addEventListener('click', function(){ goTo(active + 1); });
+
+  let scrollTimer;
+  grid.addEventListener('scroll', function(){
+    window.clearTimeout(scrollTimer);
+    scrollTimer = window.setTimeout(updateFromScroll, 80);
+  }, { passive: true });
+
+  window.addEventListener('resize', function(){
+    if (window.innerWidth <= 980) goTo(active);
+  });
+
+  updateDots();
+})();
+</script>
+
+</body>
+</html>

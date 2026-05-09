@@ -55,9 +55,8 @@
     .faq{margin:44px auto;text-align:center}.faq-list{width:min(900px,100%);margin:26px auto 0;display:grid;gap:12px;justify-items:center}details{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:13px;padding:18px 22px;text-align:left}summary{cursor:pointer;font-weight:800;list-style:none}summary::-webkit-details-marker{display:none}details p{color:var(--muted);line-height:1.6;margin:14px 0 0;max-width:720px}
     footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(2,4,12,.55);padding:44px 0 24px}.footer-grid {
       display: grid;
-      grid-template-columns: 1fr auto;
       gap: 36px;
-      align-items: center;
+      align-items: start;
     }footer p,footer a{color:var(--muted)}footer h4{margin:0 0 12px}footer a{display:block;margin:9px 0}.copyright{text-align:center;color:#778099;margin-top:36px}
     @media(max-width:980px){.nav-links{display:none}.scene{min-height:auto;padding:12px}.place{position:relative;width:100%;height:auto;aspect-ratio:1.61/1;left:auto;right:auto;top:auto;bottom:auto;margin:16px 0}.center-mark,.arc{display:none}.feature-row,.how-grid,.download-grid,.footer-grid,.privacy{grid-template-columns:1fr}.privacy{text-align:center}.privacy .shield{margin:0 auto}.apk{flex-direction:column}.apk h3,.apk p{text-align:center}}
       /* v11 polish */
@@ -103,6 +102,8 @@
     }
 
     #how-it-works,
+    #download,
+    #faq,
     .scroll-anchor {
       scroll-margin-top: 132px;
     }
@@ -217,10 +218,170 @@
       line-height: 1.35;
     }
 
-  </style>
+  
+    .learn-more-row{display:flex;justify-content:center;margin-top:28px}
+    .footer-columns{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;align-items:start;text-align:left;width:100%}
+        .footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+        .footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+        .footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+        .footer-col a:hover{color:#fff}
+        @media(max-width:760px){.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px;text-align:left}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}}
+
+  
+    /* footer distribution fix */
+    footer .footer-columns{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px;align-items:start;text-align:left;width:100%}
+    @media(max-width:760px){footer .footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px}footer .footer-brand{grid-column:1/-1}}
+  
+    .nav-container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    #how-it-works,#download,#faq,.scroll-anchor{scroll-margin-top:112px}
+    .footer-columns{display:grid;grid-template-columns:1.35fr 1fr 1fr 1.1fr auto;gap:34px;align-items:start;text-align:left;width:min(1180px,calc(100% - 48px));margin:0 auto}
+    .footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+    .footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+    .footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+    .footer-col a:hover{color:#fff}
+    .footer-download{display:inline-flex!important;color:#fff!important;margin-top:4px!important;padding:12px 18px!important;white-space:nowrap}
+    .learn-more-wrap{text-align:center;margin-top:28px}
+    .learn-more-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.035);color:#fff;font-weight:850;box-shadow:none;text-decoration:none}
+    .learn-more-link:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
+    @media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 34px;width:min(100% - 28px,1180px)}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}.footer-download{width:100%;text-align:center}}
+
+  
+/* final nav/footer alignment */
+.nav-container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-links{display:flex;gap:34px;align-items:center;color:#dfe4fb;font-weight:650;font-size:14px}
+.nav-links a:hover{color:#fff}
+.footer-columns{display:grid!important;grid-template-columns:1.25fr 1fr 1fr 1.05fr auto!important;gap:34px!important;align-items:start!important;text-align:left!important;width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+.footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+.footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+.footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-download{display:inline-flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;margin-top:4px!important;padding:14px 22px!important;white-space:nowrap!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;font-weight:850!important}
+#how-it-works,#download,#faq,.scroll-anchor{scroll-margin-top:112px}
+@media(max-width:980px){.nav-links{display:none}}
+@media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 34px!important;width:min(100% - 28px,1180px)!important}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}.footer-download{width:100%;max-width:220px}}
+
+
+.learn-more-row{text-align:center;margin-top:28px}
+.learn-more-row .btn{background:rgba(255,255,255,.035);box-shadow:none}
+.learn-more-row .btn:hover{background:rgba(255,255,255,.06)}
+
+
+.learn-more-row{text-align:center;margin-top:28px}
+.learn-more-row .btn{background:rgba(255,255,255,.035)!important;box-shadow:none!important}
+.learn-more-row .btn:hover{background:rgba(255,255,255,.06)!important}
+
+
+/* final learn-more pill */
+.learn-more-row{display:flex!important;justify-content:center!important;margin-top:30px!important}
+.learn-more-pill{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 24px;border-radius:999px;background:linear-gradient(135deg,rgba(124,77,255,.22),rgba(49,94,255,.12));border:1px solid rgba(188,158,255,.36);color:#efeaff!important;font-weight:900;letter-spacing:.02em;box-shadow:0 0 36px rgba(124,77,255,.18),inset 0 1px 0 rgba(255,255,255,.10);text-decoration:none}
+.learn-more-pill b{display:grid;place-items:center;width:24px;height:24px;border-radius:999px;background:rgba(124,77,255,.24);color:#fff}
+.learn-more-pill:hover{transform:translateY(-1px);filter:brightness(1.08)}
+
+
+/* exact shared top nav */
+nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filter:blur(18px)!important;background:rgba(5,8,20,.78)!important;border-bottom:1px solid rgba(255,255,255,.06)!important}
+.nav-container{width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+.nav-inner{height:76px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:24px!important}
+.wordmark-img{display:block!important;width:132px!important;height:auto!important;object-fit:contain!important;filter:drop-shadow(0 0 18px rgba(124,77,255,.22))!important}
+.nav-links{display:flex!important;gap:34px!important;align-items:center!important;color:#dfe4fb!important;font-weight:650!important;font-size:14px!important;line-height:1!important}
+.nav-links a{color:#dfe4fb!important;text-decoration:none!important;margin:0!important;padding:0!important}
+.nav-links a:hover{color:#fff!important}
+.btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;padding:14px 22px!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;font-weight:850!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;color:#fff!important;text-decoration:none!important;line-height:1!important;cursor:pointer!important}
+.footer-download{display:inline-flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;margin-top:4px!important;padding:14px 22px!important;white-space:nowrap!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;font-weight:850!important}
+@media(max-width:980px){.nav-links{display:none!important}}
+@media(max-width:760px){.nav-container{width:min(100% - 28px,1180px)!important}}
+
+
+/* sexy learn more hover */
+.learn-more-pill{
+  transition:all .22s ease!important;
+  position:relative;
+  overflow:hidden;
+}
+.learn-more-pill:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+  transform:translateX(-120%);
+  transition:transform .5s ease;
+}
+.learn-more-pill:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 0 42px rgba(124,77,255,.28),0 12px 36px rgba(0,0,0,.32)!important;
+  border-color:rgba(208,186,255,.52)!important;
+}
+.learn-more-pill:hover:before{
+  transform:translateX(120%);
+}
+
+
+/* r8 mobile hamburger nav */
+.mobile-menu-toggle{
+  display:none;
+  width:46px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.045);
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+}
+.mobile-menu-toggle span{
+  display:block;
+  width:21px;
+  height:2px;
+  border-radius:999px;
+  background:#f7f3ff;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.mobile-menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mobile-menu-toggle.open span:nth-child(2){opacity:0}
+.mobile-menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  width:min(1180px,calc(100% - 48px));
+  margin:0 auto 14px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:rgba(10,13,30,.96);
+  box-shadow:0 18px 52px rgba(0,0,0,.36),0 0 28px rgba(124,77,255,.16);
+  backdrop-filter:blur(18px);
+}
+.mobile-menu a{
+  display:block;
+  color:#dfe4fb;
+  text-decoration:none;
+  font-weight:750;
+  padding:13px 12px;
+  border-radius:12px;
+}
+.mobile-menu a:hover{background:rgba(255,255,255,.055);color:#fff}
+.mobile-menu .mobile-download{
+  display:flex!important;
+  margin-top:8px;
+  color:#fff!important;
+}
+@media(max-width:980px){
+  .nav-download{display:none!important}
+  .mobile-menu-toggle{display:flex!important}
+}
+@media(min-width:981px){
+  .mobile-menu{display:none!important}
+}
+@media(max-width:760px){
+  .mobile-menu{width:min(100% - 28px,1180px)}
+}
+
+</style>
 </head>
 <body>
-  <nav><div class="container nav-inner"><a href="#top" class="brand-logo" aria-label="Kami home"><img class="wordmark-img" src="assets/logo-wordmark.png" alt="Kami" /></a><div class="nav-links"><a href="#how-it-works">How It Works</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a></div><a href="#download" class="btn">Download Kami</a></div></nav>
+  <nav><div class="nav-container nav-inner"><a href="index.html" class="brand-logo" aria-label="Kami home"><img class="wordmark-img" src="assets/logo-wordmark.png" alt="Kami" /></a><div class="nav-links"><a href="#top">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div><a href="index.html#download" class="btn nav-download">Download Kami</a><button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div><div id="mobile-menu" class="mobile-menu" hidden><a href="#top">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="index.html#download" class="btn mobile-download">Download Kami</a></div></nav>
   <main id="top">
     <section class="hero container">
       <div class="eyebrow-wrap"><div class="eyebrow"><span class="pin">📍</span><span>Built for real moments</span></div></div>
@@ -229,12 +390,19 @@
       <div class="scene" aria-label="Kami connecting people across parks, gyms, coffee shops, and events"><div class="arc"></div><div class="arc two"></div><div class="center-mark"><img class="logo-mark" src="assets/k-mark-transparent.png" alt="Kami" /></div><article class="place park"><img src="assets/park-card.png" alt="At the park, 12 people here" /></article><article class="place gym"><img src="assets/gym-card.png" alt="At the gym, 15 people here" /></article><article class="place coffee"><img src="assets/coffee-card.png" alt="At a coffee shop, 8 people here" /></article><article class="place event"><img src="assets/event-card.png" alt="At a community event, 20 people here" /></article></div>
       <div class="feature-row" id="features"><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>See who’s around</h3><p>Discover nearby people in your current location.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></div><h3>Start conversations</h3><p>Break the ice with easy starters and shared context.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>In real life</h3><p>From the park to the gym, Kami works where you do.</p></div><div class="mini-card"><div class="icon"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div><h3>Meaningful by design</h3><p>We limit noise so you can focus on real connections.</p></div></div>
     </section>
-    <section id="how-it-works" class="container panel scroll-anchor"><div class="section-kicker">How It Works</div><h2 class="section-title">From download to real-life connection.</h2><p class="section-sub">Kami is intentionally simple: install the app, connect your social context, and get notified when there is someone worth meeting nearby.</p><div class="how-grid"><div class="how-card"><div class="how-number">1</div><h3>Download Kami</h3><p>Install the Android APK directly from this site while we prepare for broader app store distribution.</p></div><div class="how-card"><div class="how-number">2</div><h3>Enter your Instagram</h3><p>Add your IG handle so Kami can understand enough public context to help make nearby people feel less random.</p></div><div class="how-card"><div class="how-number">3</div><h3>Wait for a notification</h3><p>When Kami spots someone nearby who seems relevant, interesting, or worth saying hi to, you get a nudge.</p></div><div class="how-card"><div class="how-number">4</div><h3>Connect in real life</h3><p>Use the context as an opener, then actually meet, talk, train, walk, work, or hang out in the place you already are.</p></div></div></section>
+    <section id="how-it-works" class="container panel scroll-anchor"><div class="section-kicker">How It Works</div><h2 class="section-title">From download to real-life connection.</h2><p class="section-sub">Kami is intentionally simple: install the app, connect your social context, and get notified when there is someone worth meeting nearby.</p><div class="how-grid"><div class="how-card"><div class="how-number">1</div><h3>Download Kami</h3><p>Install the Android APK directly from this site while we prepare for broader app store distribution.</p></div><div class="how-card"><div class="how-number">2</div><h3>Enter your Instagram</h3><p>Add your IG handle so Kami can understand enough public context to help make nearby people feel less random.</p></div><div class="how-card"><div class="how-number">3</div><h3>Wait for a notification</h3><p>When Kami spots someone nearby who seems relevant, interesting, or worth saying hi to, you get a nudge.</p></div><div class="how-card"><div class="how-number">4</div><h3>Connect in real life</h3><p>Use the context as an opener, then actually meet, talk, train, walk, work, or hang out in the place you already are.</p></div></div>
+      <div class="learn-more-row"><a class="learn-more-pill" href="how-it-works.html"><span>Learn more about how Kami works</span><b>→</b></a></div></section>
     <section id="download" class="container panel download"><div class="section-kicker">Download</div><h2 class="section-title">Get Kami for Android</h2><p class="section-sub">iOS is coming soon. Android users can download the APK and install it directly.</p><div class="download-grid"><div class="download-card"><div class="apk"><div class="android"><svg viewBox="0 0 24 24"><path d="M5 16V9a7 7 0 0 1 14 0v7"/><path d="M5 16h14v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M8 5 6 2"/><path d="m16 5 2-3"/><path d="M9 11h.01"/><path d="M15 11h.01"/></svg></div><div><h3>Download Latest Release</h3><p><span id="apk-version">loading latest release...</span>.apk<br />Size: <span id="apk-size">loading...</span></p></div></div><a id="apk-download" class="btn" href="javascript:void(0)" aria-disabled="true">⬇ Download APK</a><div class="info-box">Kami is not available on the Play Store yet. Download the APK and sideload to install.</div></div><div class="steps" id="sideloading"><h3>Sideloading Instructions</h3><ol><li><b>1</b><span>Download the APK file from the button on the left.</span></li><li><b>2</b><span>Open Settings on your Android device.</span></li><li><b>3</b><span>Go to Security & privacy &gt; More security settings.</span></li><li><b>4</b><span>Enable Install unknown apps.</span></li><li><b>5</b><span>Select your browser or file manager and allow from this source.</span></li><li><b>6</b><span>Open the downloaded APK file and tap Install.</span></li></ol></div></div></section>
     <section class="container panel privacy"><div class="shield"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/></svg></div><div><h3>A note on privacy</h3><p>Kami uses cloud data to power real-time discovery. We delete all location history. Read our full <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p></div></section>
     <section id="faq" class="container faq"><div class="section-kicker">FAQ</div><h2 class="section-title">Frequently Asked Questions</h2><div class="faq-list"><details><summary>What is Kami?</summary><p>Kami helps you discover interesting people in the physical spaces you already visit, like parks, gyms, cafés, events, conferences, and meetups. The goal is not more endless swiping. It is better context for real-world connection.</p></details><details><summary>Why does Kami ask for my Instagram?</summary><p>Your Instagram handle gives Kami a lightweight way to understand your public social context: interests, vibe, and potential conversation hooks. That helps the app make smarter introductions than “here is another random person nearby.”</p></details><details><summary>How does Kami know who’s around me?</summary><p>Kami uses your current location to understand what physical space you are in and whether other active users are nearby. It uses cloud services for discovery, but deletes location history so the product does not become a creepy little breadcrumb museum.</p></details><details><summary>What happens when there is someone worth meeting?</summary><p>Kami can notify you when someone nearby looks relevant or interesting. From there, you can review the context, decide whether it is worth engaging, and start a real conversation if the moment makes sense.</p></details><details><summary>Is my data secure?</summary><p>Kami uses cloud infrastructure because real-time discovery requires it. We keep the privacy promise narrow and honest: location history is deleted, and the product is designed around timely nearby context rather than long-term location tracking.</p></details><details><summary>When will iOS be available?</summary><p>Android is the first test platform. iOS is planned, but the immediate focus is getting the Android beta into users’ hands and learning quickly from real-world usage.</p></details></div></section>
   </main>
-  <footer><div class="container footer-grid"><div><div class="brand-logo footer"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></div><p>Meet people.<br />In more places.</p></div><div><a href="#download">Download</a><a href="#faq">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="mailto:hello@kamisocial.com">Contact: <strong>hello@kamisocial.com</strong></a></div></div><div class="copyright">© 2026 Kami Social. All rights reserved.</div></footer>
+  <footer><div class="nav-container footer-columns">
+      <div class="footer-brand"><a href="index.html" class="brand-logo footer" aria-label="Kami home"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></a><p>One city. Real people. Real moments.</p></div>
+      <div class="footer-col"><h4>About</h4><a href="#top">Home</a><a href="how-it-works.html">How It Works</a><a href="index.html#faq">FAQ</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@kamisocial.com"><strong>hello@kamisocial.com</strong></a></div>
+      <div class="footer-col"><h4>Download</h4><a class="btn footer-download" href="index.html#download">Download Kami</a></div>
+    </div><div class="copyright">© 2026 Kami Social. All rights reserved.</div></footer>
 
 
 <script>
@@ -332,6 +500,35 @@ loadLatestApk();
     Download starting...
     <small>If Android asks for permission, allow the APK download.</small>
   </div>
+
+
+<script>
+(function(){
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+
+  function closeMenu(){
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    menu.hidden = true;
+  }
+
+  toggle.addEventListener('click', function(){
+    const isOpen = toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    menu.hidden = !isOpen;
+  });
+
+  menu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 980) closeMenu();
+  });
+})();
+</script>
 
 </body>
 </html>
