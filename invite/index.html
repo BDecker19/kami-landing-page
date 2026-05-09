@@ -275,7 +275,10 @@
         `https://bscnpilzmilzabagnypx.supabase.co/functions/v1/public-invite-profile?code=${encodeURIComponent(code)}`
       );
 
-      if (!response.ok) return;
+      if (!response.ok) {
+        window.location.replace("/");
+        return;
+      }
 
       const profile = await response.json();
       const displayName = (profile.displayName || profile.display_name || "").trim();
