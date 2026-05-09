@@ -292,8 +292,7 @@
         inviteAvatar.innerHTML = "";
         const img = document.createElement("img");
         img.referrerPolicy = "no-referrer";
-        img.referrerPolicy = "no-referrer";
-        img.src = avatarUrl;
+        img.src = `https://bscnpilzmilzabagnypx.supabase.co/functions/v1/public-invite-profile?code=${encodeURIComponent(code)}&avatar=1`;
         img.alt = displayName || "Kami inviter";
         img.style.width = "100%";
         img.style.height = "100%";
