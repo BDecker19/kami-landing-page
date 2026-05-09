@@ -165,7 +165,7 @@
         <div class="invite-pill">✶ You’ve been invited</div>
         <h1>Join Kami.<br />See what’s <span class="gradient-text">happening</span><br />around you.</h1>
         <div class="inviter">
-          <div class="avatar" aria-hidden="true">
+          <div class="avatar" id="invite-avatar" aria-hidden="true">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#2d1b50"/><stop offset="1" stop-color="#9f6cff"/></linearGradient></defs>
               <rect width="100" height="100" fill="url(#g)"/>
@@ -174,7 +174,7 @@
               <path d="M32 35c3-20 34-20 38 1-8-8-26-8-38-1z" fill="#1d1324"/>
             </svg>
           </div>
-          <div><strong id="invite-code">benji</strong> invited you to join Kami<br />Discover events, places, and real-time activity in your immediate vicinity.</div>
+          <div><strong id="invite-name">benji</strong> invited you to join Kami<br />Discover events, places, and real-time activity in your immediate vicinity.</div>
         </div>
         <div class="store-row">
           <a class="google-play" href="https://play.google.com/store/apps/details?id=com.kami.mvp" aria-label="Get Kami on Google Play">
@@ -260,13 +260,48 @@
   }
 
   const code = readInviteCode();
-  const codeNode = document.getElementById("invite-code");
+  const inviteName = document.getElementById("invite-name");
+  const inviteAvatar = document.getElementById("invite-avatar");
   const openKami = document.getElementById("open-kami");
 
-  if (codeNode) codeNode.textContent = code;
+  if (inviteName) inviteName.textContent = code;
   if (openKami) openKami.href = `kami://invite/${encodeURIComponent(code)}`;
 
   document.title = `Kami | Invite from ${code}`;
+
+  async function hydrateInviteProfile() {
+    try {
+      const response = await fetch(
+        `https://bscnpilzmilzabagnypx.supabase.co/functions/v1/public-invite-profile?code=${encodeURIComponent(code)}`
+      );
+
+      if (!response.ok) return;
+
+      const profile = await response.json();
+      const displayName = (profile.displayName || profile.display_name || "").trim();
+      const avatarUrl = profile.avatarUrl || profile.avatar_url;
+
+      if (displayName && inviteName) {
+        inviteName.textContent = displayName;
+        document.title = `Kami | Invite from ${displayName}`;
+      }
+
+      if (avatarUrl && inviteAvatar) {
+        inviteAvatar.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = avatarUrl;
+        img.alt = displayName || "Kami inviter";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+        inviteAvatar.appendChild(img);
+      }
+    } catch {
+      // Keep the invite-code fallback if the public profile lookup fails.
+    }
+  }
+
+  hydrateInviteProfile();
 </script>
 
 </body>
