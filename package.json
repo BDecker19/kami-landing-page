@@ -1,5 +1,8 @@
 {
   "name": "kami-landing-page",
   "private": true,
-  "description": "Static public site + minimal Vercel functions"
+  "description": "Static public site + minimal Vercel functions",
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.1"
+  }
 }
