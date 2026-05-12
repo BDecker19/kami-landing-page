@@ -8,5 +8,5 @@
  */
 window.__KAMI_BROWSER_SUPABASE__ = {
   url: "https://bscnpilzmilzabagnypx.supabase.co",
-  anonKey: "",
+  anonKey: "sb_publishable_KZjXdTtB1w5nm1to8f2MXA_Pg0JbiU6",
 };
