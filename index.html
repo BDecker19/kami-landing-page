@@ -16,6 +16,30 @@
   <meta name="twitter:description" content="Built for real moments. Discover nearby people in the places you already go." />
   <meta name="twitter:image" content="./assets/og-image.png" />
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <script>
+    (function () {
+      function recoveryParams(params) {
+        return (
+          params.get("type") === "recovery" &&
+          !!params.get("access_token") &&
+          !!params.get("refresh_token")
+        );
+      }
+      try {
+        var hash = window.location.hash;
+        if (hash.length > 2 && recoveryParams(new URLSearchParams(hash.slice(1)))) {
+          window.location.replace("/password-reset" + hash);
+          return;
+        }
+        var search = window.location.search;
+        if (search.length > 1 && recoveryParams(new URLSearchParams(search.slice(1)))) {
+          window.location.replace("/password-reset" + search);
+        }
+      } catch (_err) {
+        /* ignore */
+      }
+    })();
+  </script>
 
   <style>
     :root {
