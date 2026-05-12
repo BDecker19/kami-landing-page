@@ -41,7 +41,7 @@ Redeploy after changing env vars.
 ### Behavior (web reset)
 
 - Supabase typically appends session parameters in the **URL hash** (`#access_token=…&refresh_token=…&type=recovery`) or, depending on flow, in the **query string**.
-- The page calls **`setSession`** with those tokens, clears the hash/query from the address bar, then lets the user set a new password with **`updateUser({ password })`** in the browser.
+- The page calls **`setSession`** with those tokens, clears the hash/query from the address bar, then (if the account uses MFA) asks for a **TOTP or SMS** code so the session reaches **AAL2**, then lets the user set a new password with **`updateUser({ password })`**.
 - Tokens are not logged, shown, or sent to analytics. The address bar is cleaned only **after** a session exchange attempt.
 
 ### Ops checklist
