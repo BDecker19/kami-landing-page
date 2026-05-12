@@ -13,6 +13,10 @@
       "destination": "/how-it-works.html"
     },
     {
+      "source": "/password-reset",
+      "destination": "/password-reset.html"
+    },
+    {
       "source": "/invite/:code",
       "destination": "/invite/index.html"
     }
@@ -31,6 +35,11 @@
     {
       "source": "/how-it-works.html",
       "destination": "/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/password-reset.html",
+      "destination": "/password-reset",
       "permanent": true
     }
   ]
