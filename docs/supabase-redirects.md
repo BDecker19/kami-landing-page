@@ -27,8 +27,8 @@ In **Vercel → Project → Settings → Environment Variables** (Production / P
 
 | Name | Value |
 |------|--------|
-| **`SUPABASE_ANON_KEY`** | From Supabase **Settings → API → Project API keys → anon public** |
-| **`SUPABASE_URL`** | Optional. Defaults to `https://bscnpilzmilzabagnypx.supabase.co` if unset. |
+| **`SUPABASE_ANON_KEY`** or **`NEXT_PUBLIC_SUPABASE_ANON_KEY`** | From Supabase **Settings → API → Project API keys → anon public** (either variable name works) |
+| **`SUPABASE_URL`** or **`NEXT_PUBLIC_SUPABASE_URL`** | Optional. Defaults to `https://bscnpilzmilzabagnypx.supabase.co` if unset. |
 
 Redeploy after changing env vars.
 

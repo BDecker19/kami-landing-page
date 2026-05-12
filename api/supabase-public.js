@@ -5,8 +5,13 @@
 module.exports = function supabasePublicHandler(req, res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "private, no-store, max-age=0");
-  res.status(200).json({
-    url: process.env.SUPABASE_URL || "https://bscnpilzmilzabagnypx.supabase.co",
-    anonKey: process.env.SUPABASE_ANON_KEY || "",
-  });
+  const anonKey =
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    "";
+  const url =
+    process.env.SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    "https://bscnpilzmilzabagnypx.supabase.co";
+  res.status(200).json({ url, anonKey });
 };
