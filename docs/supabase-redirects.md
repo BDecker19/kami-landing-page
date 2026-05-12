@@ -42,7 +42,7 @@ Redeploy after changing env vars.
 ### Behavior (web reset)
 
 - Supabase typically appends session parameters in the **URL hash** (`#access_token=…&refresh_token=…&type=recovery`) or, depending on flow, in the **query string**.
-- The page calls **`setSession`** with those tokens, clears the hash/query from the address bar, then submits the new password to **`/api/password-reset-complete`**, which checks the JWT **`amr`** for **`recovery`** and updates the password with the **service role** (no MFA step on this page).
+- The page calls **`setSession`** with those tokens, clears the hash/query from the address bar, then submits the new password to **`/api/password-reset-complete`**, which checks the JWT **`amr`** for **`recovery`**, or (when GoTrue uses **`otp`** in `amr` for implicit recovery) **`recovery_sent_at`** plus JWT **`iat`**, then updates the password with the **service role** (no MFA step on this page).
 - Tokens are not logged, shown, or sent to analytics. The address bar is cleaned only **after** a session exchange attempt.
 
 ### Ops checklist

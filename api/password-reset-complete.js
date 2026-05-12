@@ -1,7 +1,8 @@
 /**
  * Completes password reset for recovery sessions without requiring MFA (AAL2).
- * Uses the service role only after verifying the JWT is a valid user session
- * whose AMR includes `recovery` (same guarantee as Supabase recovery links).
+ * Uses the service role after verifying the JWT is a valid user session that
+ * came from password recovery: either `amr` contains `recovery`, or (for GoTrue
+ * implicit tokens that use `otp` in `amr`) a fresh `recovery_sent_at` plus JWT `iat`.
  */
 const { createClient } = require("@supabase/supabase-js");
 
@@ -44,14 +45,52 @@ function jwtPayloadUnverified(jwt) {
   }
 }
 
-function amrIndicatesRecovery(payload) {
-  const amr = payload && payload.amr;
-  if (!Array.isArray(amr)) return false;
+/** @returns {string[]} lowercased method names from `amr` */
+function extractAmrMethods(payload) {
+  if (!payload || payload.amr == null) return [];
+  const amr = payload.amr;
+  if (typeof amr === "string") return [String(amr).toLowerCase()];
+  if (!Array.isArray(amr)) return [];
+  const out = [];
   for (const entry of amr) {
-    if (entry === "recovery") return true;
-    if (entry && typeof entry === "object" && entry.method === "recovery") return true;
+    if (typeof entry === "string") out.push(entry.toLowerCase());
+    else if (entry && typeof entry.method === "string") out.push(String(entry.method).toLowerCase());
   }
+  return out;
+}
+
+function amrHasRecoveryMethod(payload) {
+  const methods = extractAmrMethods(payload);
+  return methods.some((m) => m === "recovery");
+}
+
+/**
+ * GoTrue often issues implicit recovery sessions with `amr: [{ method: "otp", ... }]`
+ * (same shape as some magic-link sessions), so we also require a fresh
+ * `recovery_sent_at` and a JWT `iat` shortly after that timestamp.
+ * Tight window limits overlap with unrelated magic-link logins.
+ */
+function implicitRecoveryFromEmailLink(user, payload) {
+  const rst = user && user.recovery_sent_at;
+  if (!rst) return false;
+  const sentMs = Date.parse(rst);
+  if (Number.isNaN(sentMs)) return false;
+  const now = Date.now();
+  const iatMs = typeof payload.iat === "number" ? payload.iat * 1000 : 0;
+  if (!iatMs) return false;
+  if (iatMs < sentMs - 120000) return false;
+  if (now - sentMs > 24 * 60 * 60 * 1000) return false;
+  if (iatMs - sentMs > 4 * 60 * 60 * 1000) return false;
+  const methods = extractAmrMethods(payload);
+  if (methods.includes("recovery")) return true;
+  if (methods.length === 1 && (methods[0] === "otp" || methods[0] === "magiclink")) return true;
   return false;
+}
+
+function isPasswordRecoverySession(user, payload) {
+  if (!payload) return false;
+  if (amrHasRecoveryMethod(payload)) return true;
+  return implicitRecoveryFromEmailLink(user, payload);
 }
 
 function pickSupabaseUrl() {
@@ -110,13 +149,19 @@ module.exports = async function passwordResetComplete(req, res) {
     return;
   }
 
+  let user = userData.user;
+  if (!user.recovery_sent_at) {
+    const { data: adminUser } = await admin.auth.admin.getUserById(user.id);
+    if (adminUser?.user?.recovery_sent_at) user = adminUser.user;
+  }
+
   const payload = jwtPayloadUnverified(userJwt);
-  if (!amrIndicatesRecovery(payload)) {
+  if (!isPasswordRecoverySession(user, payload)) {
     res.status(403).json({ error: "This action is only allowed from an email password reset link." });
     return;
   }
 
-  const uid = userData.user.id;
+  const uid = user.id;
   const { error: upErr } = await admin.auth.admin.updateUserById(uid, { password });
   if (upErr) {
     res.status(400).json({ error: upErr.message || "Could not update password." });
