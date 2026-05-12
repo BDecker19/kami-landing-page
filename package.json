@@ -1,0 +1,5 @@
+{
+  "name": "kami-landing-page",
+  "private": true,
+  "description": "Static public site + minimal Vercel functions"
+}
