@@ -46,6 +46,8 @@ Uses the same Vercel env vars as password reset:
 | **`SUPABASE_SERVICE_ROLE_KEY`** | Required for the store catalog API |
 | **`SUPABASE_URL`** | Optional. Defaults to `https://bscnpilzmilzabagnypx.supabase.co` |
 
+**Reward requests:** `POST /api/request-store-reward` calls `kami_request_point_store_redemption` server-side with the service role. The browser never sees Supabase keys.
+
 Optional SQL view (for future anon/RPC access): `supabase/migrations/20260531210000_published_point_store_rewards_view.sql`.
 
 ### Fallback file
