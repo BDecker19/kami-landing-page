@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kami Store | Redeem Points for Real-World Rewards</title>
+  <meta name="description" content="Earn Kami points by going places, joining events, connecting with others, and inviting friends. Redeem points for real-world rewards from Kami and local partners." />
+  <meta property="og:title" content="Kami Store | Redeem Points for Real-World Rewards" />
+  <meta property="og:description" content="Earn Kami points by going places, joining events, connecting with others, and inviting friends. Redeem points for real-world rewards from Kami and local partners." />
+  <meta property="og:image" content="./assets/store-hero-bg.jpg" />
+  <link rel="icon" href="./assets/k-mark-transparent.png" type="image/png" sizes="any" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{--bg:#05040d;--panel:#0b1022;--text:#f7f3ff;--muted:#a9b0c8;--purple:#7c4dff;--purple2:#a56bff;--pink:#ff3ea5;--gold:#f5c842;--line:rgba(255,255,255,.10);--shadow:0 24px 80px rgba(0,0,0,.45)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 15% 0%,rgba(124,77,255,.28),transparent 32%),radial-gradient(circle at 82% 12%,rgba(255,62,165,.16),transparent 28%),linear-gradient(180deg,#040711 0%,#071020 48%,#050814 100%);min-height:100vh} a{color:inherit;text-decoration:none}
+    .container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filter:blur(18px)!important;background:rgba(5,8,20,.78)!important;border-bottom:1px solid rgba(255,255,255,.06)!important}
+    .nav-container{width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+    .nav-inner{height:76px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:24px!important}
+    .brand-logo{display:inline-flex;align-items:center;line-height:1;text-decoration:none}
+    .wordmark-img{display:block!important;width:132px!important;height:auto!important;object-fit:contain!important;filter:drop-shadow(0 0 18px rgba(124,77,255,.22))!important}
+    .footer-wordmark{width:132px}
+    .nav-links{display:flex!important;gap:34px!important;align-items:center!important;color:#dfe4fb!important;font-weight:650!important;font-size:14px!important;line-height:1!important}
+    .nav-links a{color:#dfe4fb!important;text-decoration:none!important;margin:0!important;padding:0!important}
+    .nav-links a:hover,.nav-links a.active{color:#fff!important}
+    .nav-links a.active{text-shadow:0 0 18px rgba(165,107,255,.45)}
+    .btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:10px;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;padding:14px 22px!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;font-weight:850!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;color:#fff!important;text-decoration:none!important;line-height:1!important;cursor:pointer!important;transition:transform .18s ease,filter .18s ease}
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+    .btn.secondary{background:transparent!important;box-shadow:none!important;border-color:rgba(255,255,255,.18)!important}
+    .btn.secondary:hover{background:rgba(255,255,255,.05)!important}
+    .mobile-menu-toggle{display:none;width:46px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.045);align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.20)}
+    .mobile-menu-toggle span{display:block;width:21px;height:2px;border-radius:999px;background:#f7f3ff;transition:transform .18s ease,opacity .18s ease}
+    .mobile-menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .mobile-menu-toggle.open span:nth-child(2){opacity:0}
+    .mobile-menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{width:min(1180px,calc(100% - 48px));margin:0 auto 14px;padding:14px;border:1px solid rgba(255,255,255,.10);border-radius:18px;background:rgba(10,13,30,.96);box-shadow:0 18px 52px rgba(0,0,0,.36),0 0 28px rgba(124,77,255,.16);backdrop-filter:blur(18px)}
+    .mobile-menu a{display:block;color:#dfe4fb;text-decoration:none;font-weight:750;padding:13px 12px;border-radius:12px}
+    .mobile-menu a:hover,.mobile-menu a.active{background:rgba(255,255,255,.055);color:#fff}
+    .mobile-menu .mobile-download{display:flex!important;margin-top:8px;color:#fff!important}
+    footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(2,4,12,.55);padding:44px 0 24px;margin-top:42px}
+    .footer-columns{display:grid!important;grid-template-columns:1.25fr 1fr 1fr 1.05fr auto!important;gap:34px!important;align-items:start!important;text-align:left!important;width:min(1180px,calc(100% - 48px))!important;margin:0 auto!important}
+    .footer-brand p{margin:12px 0 0;color:var(--muted);line-height:1.45}
+    .footer-col h4{margin:0 0 12px;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+    .footer-col a{display:block;margin:9px 0;color:var(--muted);text-decoration:none}
+    .footer-col a:hover{color:#fff}
+    .footer-download{display:inline-flex!important;align-items:center!important;justify-content:center!important;color:#fff!important;margin-top:4px!important;padding:14px 22px!important;white-space:nowrap!important;background:linear-gradient(135deg,var(--purple),#315eff)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(87,73,255,.28)!important;font-weight:850!important}
+    .copyright{text-align:center;color:#778099;margin-top:36px}
+    #rewards,#how-points-work{scroll-margin-top:104px}
+    @media(max-width:980px){.nav-links{display:none!important}.nav-download{display:none!important}.mobile-menu-toggle{display:flex!important}}
+    @media(min-width:981px){.mobile-menu{display:none!important}}
+    @media(max-width:760px){.nav-container,.mobile-menu{width:min(100% - 28px,1180px)!important}.container{width:min(100% - 28px,1180px)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 34px!important;width:min(100% - 28px,1180px)!important}.footer-brand{grid-column:1/-1}.footer-col{min-width:0}.footer-download{width:100%;max-width:220px}}
+
+    .store-hero{position:relative;min-height:min(78vh,720px);display:flex;align-items:center;overflow:hidden}
+    .store-hero-bg{position:absolute;inset:0;background:url("assets/store-hero-bg.jpg") center/cover no-repeat;transform:scale(1.02)}
+    .store-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,7,17,.55) 0%,rgba(4,7,17,.72) 42%,rgba(5,8,20,.92) 100%),radial-gradient(circle at 18% 20%,rgba(124,77,255,.28),transparent 42%),radial-gradient(circle at 82% 10%,rgba(75,124,255,.18),transparent 36%)}
+    .store-hero-content{position:relative;z-index:1;padding:72px 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
+    .store-hero-copy{max-width:640px}
+    .eyebrow{display:inline-flex;padding:8px 18px;border-radius:999px;border:1px solid rgba(158,94,255,.38);background:rgba(89,45,192,.18);color:#d8baff;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:900;margin-bottom:24px}
+    .store-hero h1{margin:0;font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.06em}
+    .gradient-text{background:linear-gradient(135deg,var(--purple2),#6ea8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .store-hero .tagline{margin:16px 0 0;font-size:clamp(22px,3vw,34px);line-height:1.15;letter-spacing:-.04em;color:#f3efff}
+    .store-hero .lede{margin:20px 0 0;color:#c8bfd8;font-size:18px;line-height:1.72;max-width:560px}
+    .activity-line{margin:18px 0 0;padding:14px 18px;border-radius:16px;border:1px solid rgba(158,94,255,.28);background:rgba(10,8,28,.55);color:#e8dcff;font-size:15px;line-height:1.6;font-weight:650}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
+    .points-card{border:1px solid rgba(158,94,255,.34);border-radius:24px;padding:28px;background:linear-gradient(180deg,rgba(16,10,40,.82),rgba(8,6,24,.78));box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+    .points-card-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .points-card-head img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(124,77,255,.4))}
+    .points-card-head span{font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#d8baff}
+    .points-card p{margin:0;color:#c8bfd8;font-size:15px;line-height:1.65}
+    .points-card ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    .points-card li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;color:#ddd3f0;font-size:14px;line-height:1.5}
+    .points-card li i{width:18px;height:18px;color:var(--purple2);margin-top:2px}
+
+    .section-head{margin:56px 0 28px;text-align:center}
+    .section-kicker{display:inline-flex;padding:7px 14px;border-radius:999px;border:1px solid rgba(158,94,255,.32);background:rgba(89,45,192,.14);color:#d8baff;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:900;margin-bottom:14px}
+    .section-head h2{margin:0;font-size:clamp(28px,4vw,42px);letter-spacing:-.04em;line-height:1.08}
+    .section-head p{margin:12px auto 0;max-width:640px;color:#c8bfd8;font-size:16px;line-height:1.65}
+
+    .rewards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .reward-card{border:1px solid rgba(158,94,255,.24);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(18,12,42,.88),rgba(8,6,24,.82));box-shadow:0 18px 50px rgba(0,0,0,.24);display:flex;flex-direction:column;min-height:100%}
+    .reward-visual{position:relative;height:180px;overflow:hidden;display:grid;place-items:center}
+    .reward-visual i{width:54px;height:54px;color:rgba(255,255,255,.88);filter:drop-shadow(0 0 18px rgba(124,77,255,.35))}
+    .reward-visual.food{background:linear-gradient(135deg,rgba(120,72,36,.85),rgba(70,38,18,.92)),radial-gradient(circle at 70% 30%,rgba(255,180,90,.35),transparent 55%)}
+    .reward-visual.dinner{background:linear-gradient(135deg,rgba(92,34,58,.88),rgba(48,18,36,.92)),radial-gradient(circle at 30% 70%,rgba(255,120,160,.28),transparent 55%)}
+    .reward-visual.nightlife{background:linear-gradient(135deg,rgba(58,28,110,.92),rgba(18,10,42,.95)),radial-gradient(circle at 50% 50%,rgba(124,77,255,.35),transparent 60%)}
+    .reward-visual.wellness{background:linear-gradient(135deg,rgba(24,88,88,.88),rgba(12,42,52,.92)),radial-gradient(circle at 70% 30%,rgba(90,220,200,.25),transparent 55%)}
+    .reward-visual.fitness{background:linear-gradient(135deg,rgba(92,72,18,.9),rgba(48,36,8,.95)),radial-gradient(circle at 30% 40%,rgba(245,200,66,.28),transparent 55%)}
+    .reward-visual.experience{background:linear-gradient(135deg,rgba(28,52,120,.9),rgba(12,24,58,.95)),radial-gradient(circle at 60% 40%,rgba(110,168,255,.28),transparent 55%)}
+    .reward-badges{position:absolute;top:14px;left:14px;display:flex;flex-wrap:wrap;gap:8px}
+    .pill,.type-pill{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .pill{background:rgba(8,6,20,.72);border:1px solid rgba(255,255,255,.14);color:#f3efff}
+    .pill.partner{border-color:rgba(245,200,66,.42);color:#ffe7a0}
+    .reward-body{padding:22px;display:flex;flex-direction:column;flex:1}
+    .reward-body h3{margin:0 0 8px;font-size:20px;line-height:1.15;letter-spacing:-.03em}
+    .reward-body p{margin:0;color:#c8bfd8;font-size:14px;line-height:1.58;flex:1}
+    .reward-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+    .type-pill{border:1px solid rgba(158,94,255,.28);background:rgba(124,77,255,.12);color:#d8baff}
+    .type-pill.partner{border-color:rgba(245,200,66,.34);background:rgba(245,200,66,.1);color:#ffe7a0}
+    .type-pill.target{border-color:rgba(169,176,200,.28);background:rgba(255,255,255,.05);color:#c8bfd8}
+    .points-cost{display:inline-flex;align-items:center;gap:8px;font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff}
+    .points-cost img{width:22px;height:22px;object-fit:contain}
+
+    .beta-note{margin:28px 0 0;padding:18px 20px;border-radius:18px;border:1px solid rgba(158,94,255,.24);background:rgba(255,255,255,.03);color:#b8afc8;font-size:14px;line-height:1.65;text-align:center}
+
+    .steps-section{border:1px solid rgba(158,94,255,.32);background:linear-gradient(180deg,rgba(20,13,48,.82),rgba(8,6,24,.74));border-radius:24px;padding:32px;margin:18px 0 28px;box-shadow:0 18px 60px rgba(0,0,0,.22)}
+    .steps-section .section-head{margin-top:0;margin-bottom:32px;text-align:left}
+    .steps-section .section-head p{margin-left:0;margin-right:0;max-width:720px}
+    .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .step-card{border:1px solid rgba(158,94,255,.24);background:rgba(255,255,255,.035);border-radius:20px;padding:22px;min-height:100%}
+    .step-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(158,94,255,.32);background:rgba(255,255,255,.04);margin-bottom:16px}
+    .step-icon i{width:24px;height:24px;color:var(--purple2)}
+    .step-card h4{margin:0 0 8px;font-size:17px;color:#e4d7ff}
+    .step-card p{margin:0;color:#c8bfd8;font-size:14px;line-height:1.55}
+    .step-more{margin-top:18px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.12);color:#b8afc8;font-size:14px;font-weight:700;text-align:center}
+
+    .store-cta{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;padding:30px;border-radius:26px;border:1px solid rgba(158,94,255,.36);background:linear-gradient(135deg,rgba(101,54,230,.34),rgba(75,124,255,.12));margin:28px 0 8px}
+    .store-cta h3{margin:0 0 8px;font-size:26px;letter-spacing:-.04em}
+    .store-cta p{margin:0;color:#c8bfd8;line-height:1.6}
+
+    @media(max-width:980px){
+      .store-hero{min-height:auto}
+      .store-hero-content{grid-template-columns:1fr;padding:48px 0 40px;gap:28px}
+      .points-card{max-width:520px}
+      .rewards-grid{grid-template-columns:repeat(2,1fr)}
+      .steps-grid{grid-template-columns:repeat(2,1fr)}
+      .store-cta{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .rewards-grid,.steps-grid{grid-template-columns:1fr}
+      .hero-actions{flex-direction:column}
+      .hero-actions .btn{width:100%}
+      .store-cta .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <nav><div class="nav-container nav-inner"><a href="index.html" class="brand-logo" aria-label="Kami home"><img class="wordmark-img" src="assets/logo-wordmark.png" alt="Kami" /></a><div class="nav-links"><a href="/">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/store" class="active">Store</a></div><a href="index.html#download" class="btn nav-download">Download Kami</a><button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div><div id="mobile-menu" class="mobile-menu" hidden><a href="/">About</a><a href="index.html#how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/store" class="active">Store</a><a href="index.html#download" class="btn mobile-download">Download Kami</a></div></nav>
+
+  <section class="store-hero" aria-label="Kami Store hero">
+    <div class="store-hero-bg" aria-hidden="true"></div>
+    <div class="store-hero-overlay" aria-hidden="true"></div>
+    <div class="container store-hero-content">
+      <div class="store-hero-copy">
+        <div class="eyebrow">Kami Store</div>
+        <h1>Turn points into <span class="gradient-text">real-world rewards.</span></h1>
+        <p class="lede">Earn points by going places, joining events, connecting with others, inviting friends, and more. Redeem them for food, fitness, wellness, events, and local perks as Kami grows.</p>
+        <p class="activity-line">Go places. Join events. Connect with others. Invite friends. And more.</p>
+        <div class="hero-actions">
+          <a class="btn" href="index.html#download"><i data-lucide="smartphone" aria-hidden="true"></i> Start earning in Kami</a>
+          <a class="btn secondary" href="#rewards">See rewards</a>
+        </div>
+      </div>
+      <aside class="points-card" aria-label="How Kami points work">
+        <div class="points-card-head">
+          <img src="assets/k-mark-transparent.png" alt="" />
+          <span>Kami Points</span>
+        </div>
+        <p>You earn points by showing up in the real world, exploring with friends, and helping the community grow around Austin.</p>
+        <ul>
+          <li><i data-lucide="circle-check"></i><span>Go to events and discover new places</span></li>
+          <li><i data-lucide="circle-check"></i><span>Connect with people nearby</span></li>
+          <li><i data-lucide="circle-check"></i><span>Invite friends and grow the community</span></li>
+          <li><i data-lucide="circle-check"></i><span>Redeem for real-world rewards as the catalog expands</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="rewards" aria-labelledby="rewards-title">
+      <div class="section-head">
+        <div class="section-kicker">Rewards catalog</div>
+        <h2 id="rewards-title">What points can unlock</h2>
+        <p>Use your points for experiences, perks, and real-world rewards from Kami and local partners.</p>
+      </div>
+
+      <div class="rewards-grid">
+        <article class="reward-card">
+          <div class="reward-visual food">
+            <div class="reward-badges"><span class="pill">Food &amp; Drink</span></div>
+            <i data-lucide="coffee" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>$25 Coffee / Food Credit</h3>
+            <p>Grab coffee, lunch, or a quick bite at selected local spots.</p>
+            <div class="reward-footer">
+              <span class="type-pill">Kami-funded</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />2,500</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="reward-card">
+          <div class="reward-visual dinner">
+            <div class="reward-badges"><span class="pill">Food &amp; Drink</span></div>
+            <i data-lucide="utensils" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>$50 Dinner Credit</h3>
+            <p>Turn a good night into dinner on Kami.</p>
+            <div class="reward-footer">
+              <span class="type-pill">Kami-funded</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />7,500</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="reward-card">
+          <div class="reward-visual nightlife">
+            <div class="reward-badges"><span class="pill">Nightlife</span></div>
+            <i data-lucide="martini" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>$100 Night Out Credit</h3>
+            <p>Use points toward a bigger night out with friends.</p>
+            <div class="reward-footer">
+              <span class="type-pill">Kami-funded</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />20,000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="reward-card">
+          <div class="reward-visual wellness">
+            <div class="reward-badges"><span class="pill partner">Fitness &amp; Wellness</span></div>
+            <i data-lucide="heart-pulse" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>Wellness4D Intro Session</h3>
+            <p>A wellness intro session with a local partner, subject to availability.</p>
+            <div class="reward-footer">
+              <span class="type-pill partner">Partner reward</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />10,000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="reward-card">
+          <div class="reward-visual fitness">
+            <div class="reward-badges"><span class="pill partner">Fitness</span></div>
+            <i data-lucide="dumbbell" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>Gold's Gym Month Pass</h3>
+            <p>Potential partner reward as the Austin catalog expands.</p>
+            <div class="reward-footer">
+              <span class="type-pill target">Partner target</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />15,000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="reward-card">
+          <div class="reward-visual experience">
+            <div class="reward-badges"><span class="pill partner">Events &amp; Experiences</span></div>
+            <i data-lucide="ticket" aria-hidden="true"></i>
+          </div>
+          <div class="reward-body">
+            <h3>Free Class or Local Experience</h3>
+            <p>Classes, events, and local experiences from Kami partners.</p>
+            <div class="reward-footer">
+              <span class="type-pill partner">Partner reward</span>
+              <span class="points-cost"><img src="assets/k-mark-transparent.png" alt="" />5,000</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="beta-note">The Kami Store is part of a limited beta rewards program. Points have no cash value, are non-transferable, and rewards are subject to availability, eligibility review, and change.</p>
+    </section>
+
+    <section id="how-points-work" class="steps-section" aria-labelledby="how-points-title">
+      <div class="section-head">
+        <div class="section-kicker">How it works</div>
+        <h2 id="how-points-title">How points work</h2>
+        <p>Kami rewards real-world participation. Show up around Austin, discover events and places, connect with people nearby, and help grow the community.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-icon"><i data-lucide="map-pin"></i></div>
+          <h4>Go places</h4>
+          <p>Explore the real world and discover new spots around Austin.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-icon"><i data-lucide="calendar-days"></i></div>
+          <h4>Join events</h4>
+          <p>Find and attend events that bring people together.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-icon"><i data-lucide="users"></i></div>
+          <h4>Connect with others</h4>
+          <p>Meet new people and build your local network.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-icon"><i data-lucide="send"></i></div>
+          <h4>Invite friends</h4>
+          <p>Bring your crew and help the community grow.</p>
+        </article>
+      </div>
+      <p class="step-more">And more as Kami grows</p>
+    </section>
+
+    <section class="store-cta" aria-label="Download Kami">
+      <div>
+        <h3>The adventure starts in the app.</h3>
+        <p>Download Kami to start earning points and unlock rewards as the catalog grows.</p>
+      </div>
+      <a class="btn" href="index.html#download">Download Kami</a>
+    </section>
+  </main>
+
+  <footer><div class="nav-container footer-columns">
+      <div class="footer-brand"><a href="index.html" class="brand-logo footer" aria-label="Kami home"><img class="wordmark-img footer-wordmark" src="assets/logo-wordmark.png" alt="Kami" /></a><p>One city. Real people. Real moments.</p></div>
+      <div class="footer-col"><h4>About</h4><a href="index.html">Home</a><a href="/how-it-works">How It Works</a><a href="index.html#faq">FAQ</a><a href="/store">Store</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@kamisocial.com"><strong>hello@kamisocial.com</strong></a></div>
+      <div class="footer-col"><h4>Download</h4><a class="btn footer-download" href="index.html#download">Download Kami</a></div>
+    </div><div class="copyright">© 2026 Kami Social. All rights reserved.</div></footer>
+
+  <script>lucide.createIcons({attrs:{strokeWidth:1.8}});</script>
+  <script>
+  (function(){
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (!toggle || !menu) return;
+
+    function closeMenu(){
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      menu.hidden = true;
+    }
+
+    toggle.addEventListener('click', function(){
+      const isOpen = toggle.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      menu.hidden = !isOpen;
+    });
+
+    menu.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > 980) closeMenu();
+    });
+  })();
+  </script>
+</body>
+</html>
