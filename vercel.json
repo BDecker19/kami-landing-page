@@ -21,6 +21,10 @@
       "destination": "/password-reset.html"
     },
     {
+      "source": "/delete-account",
+      "destination": "/delete-account.html"
+    },
+    {
       "source": "/invite/:code",
       "destination": "/invite/index.html"
     }
@@ -49,6 +53,11 @@
     {
       "source": "/password-reset.html",
       "destination": "/password-reset",
+      "permanent": true
+    },
+    {
+      "source": "/delete-account.html",
+      "destination": "/delete-account",
       "permanent": true
     }
   ]
