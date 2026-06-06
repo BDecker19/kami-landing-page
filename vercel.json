@@ -25,6 +25,10 @@
       "destination": "/delete-account.html"
     },
     {
+      "source": "/safety",
+      "destination": "/safety.html"
+    },
+    {
       "source": "/invite/:code",
       "destination": "/invite/index.html"
     }
@@ -58,6 +62,11 @@
     {
       "source": "/delete-account.html",
       "destination": "/delete-account",
+      "permanent": true
+    },
+    {
+      "source": "/safety.html",
+      "destination": "/safety",
       "permanent": true
     }
   ]

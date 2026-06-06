@@ -5,7 +5,8 @@
     { "source": "/how-it-works", "destination": "/how-it-works.html" },
     { "source": "/store", "destination": "/store.html" },
     { "source": "/password-reset", "destination": "/password-reset.html" },
-    { "source": "/delete-account", "destination": "/delete-account.html" }
+    { "source": "/delete-account", "destination": "/delete-account.html" },
+    { "source": "/safety", "destination": "/safety.html" }
   ],
   "redirects": [
     { "source": "/privacy.html", "destination": "/privacy", "type": 301 },
@@ -13,6 +14,7 @@
     { "source": "/how-it-works.html", "destination": "/how-it-works", "type": 301 },
     { "source": "/store.html", "destination": "/store", "type": 301 },
     { "source": "/password-reset.html", "destination": "/password-reset", "type": 301 },
-    { "source": "/delete-account.html", "destination": "/delete-account", "type": 301 }
+    { "source": "/delete-account.html", "destination": "/delete-account", "type": 301 },
+    { "source": "/safety.html", "destination": "/safety", "type": 301 }
   ]
 }
