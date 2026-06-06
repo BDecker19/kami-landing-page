@@ -2,6 +2,9 @@
   "name": "kami-landing-page",
   "private": true,
   "description": "Static public site + minimal Vercel functions",
+  "scripts": {
+    "dev": "npx serve -l 3000 ."
+  },
   "dependencies": {
     "@supabase/supabase-js": "2.49.1"
   }
