@@ -10,6 +10,6 @@ Password:
 
 The page dynamically pulls the newest published GitHub release with an `.apk` asset from:
 
-- `KamiSocial/kami-android-test-versions`
+- `Kami-Social/kami-android-test-versions`
 
 The page is intentionally marked `noindex, nofollow`.
