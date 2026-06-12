@@ -106,7 +106,7 @@ function buildBetaConfirmationContent(platform) {
   if (platform === "android") {
     return {
       title: "Welcome to the Kami Android Beta",
-      body: "You're in. Use the button below to open Kami on Google Play and install the beta.",
+      body: "You're in. Use the button below to open Kami on Google Play and install the beta (be sure you're logged into the Play Store with this email address).",
       ctaLabel: "Open on Google Play",
       ctaUrl: resolveAndroidPlayLink(),
     };
