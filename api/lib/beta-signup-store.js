@@ -35,12 +35,12 @@ async function storeBetaSignup(email, platform, source) {
   });
 
   if (!error) {
-    return { stored: true };
+    return { stored: true, inserted: true };
   }
 
   // Unique violation — already captured.
   if (error.code === "23505") {
-    return { stored: true, duplicate: true };
+    return { stored: true, duplicate: true, inserted: false };
   }
 
   console.error("[beta-signup-store] insert failed", {

@@ -11,6 +11,7 @@ const {
   getMissingEnvVars,
   addAndroidBetaGroupMember,
 } = require("../lib/google-group");
+const { sendBetaSignupEmails } = require("../lib/beta-signup-emails");
 
 module.exports = async function androidBetaSignup(req, res) {
   if (req.method !== "POST") {
@@ -67,6 +68,7 @@ module.exports = async function androidBetaSignup(req, res) {
   if (storage.stored) {
     console.info("[android-beta] signup captured", {
       duplicate: Boolean(storage.duplicate),
+      inserted: Boolean(storage.inserted),
     });
   } else if (storage.skipped) {
     console.info("[android-beta] supabase storage skipped (no service key)");
@@ -80,7 +82,14 @@ module.exports = async function androidBetaSignup(req, res) {
 
   const added = await addAndroidBetaGroupMember(email);
   if (!added.ok) {
-    sendJson(res, 500, { success: false, error: added.error });
+    console.error("[android-beta] group enrollment failed", {
+      error: added.error,
+      emailDomain: email.includes("@") ? email.split("@")[1] : "invalid",
+    });
+    sendJson(res, 500, {
+      success: false,
+      error: "Could not complete beta signup. Please try again later.",
+    });
     return;
   }
 
@@ -91,8 +100,16 @@ module.exports = async function androidBetaSignup(req, res) {
     });
   }
 
+  await sendBetaSignupEmails({
+    email,
+    platform: "android",
+    source,
+    storage,
+    groupAdd: added,
+  });
+
   sendJson(res, 200, {
     success: true,
-    message: added.message,
+    message: "You're in. Check your email for the Google Play beta link.",
   });
 };
