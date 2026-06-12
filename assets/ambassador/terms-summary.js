@@ -85,6 +85,15 @@ export function formatTierCapSummary(params) {
     return `${formatMoney(Number(cents))} / month`;
   }
 
+  const display = String(
+    params?.tier_cap_display ?? params?.tier_cap_snapshot_display ?? ""
+  ).trim();
+  if (display && !/no cap set at time of agreement|no cap currently set/i.test(display)) {
+    const displayMoney = display.match(/\$[\d,.]+/);
+    if (displayMoney) return `${displayMoney[0]} / month`;
+    return display;
+  }
+
   const text = String(params?.monthly_earnings_limit || "");
   const money = text.match(/\$[\d,.]+/);
   if (money) return `${money[0]} / month`;
@@ -140,12 +149,17 @@ function capitalizeWords(text) {
     .join("\n");
 }
 
+function renderTermsValueHtml(value) {
+  const lines = String(value || "—")
+    .split("\n")
+    .map((line) => `<span class="terms-value-line">${escapeHtml(line)}</span>`)
+    .join("");
+  return lines;
+}
+
 function renderTermCard(id, label, value, tooltip) {
   const displayValue = capitalizeWords(value);
-  const lines = String(displayValue || "—")
-    .split("\n")
-    .map((line) => `<span class="term-value-line">${escapeHtml(line)}</span>`)
-    .join("");
+  const lines = renderTermsValueHtml(displayValue);
 
   return `<article class="term-card">
     <div class="term-card-head">
@@ -248,7 +262,7 @@ export function programParametersRows(params) {
   if (!normalized) return [];
   return [
     ["Qualified Referral", capitalizeWords(formatQualifiedReferralSummary(normalized))],
-    ["Rate", capitalizeWords(formatRateSummary(normalized).replace(/\n/g, " · "))],
+    ["Rate", capitalizeWords(formatRateSummary(normalized))],
     ["Tier Cap", capitalizeWords(formatTierCapSummary(normalized))],
     ["Payout Threshold", capitalizeWords(formatPayoutThresholdSummary(normalized))],
     ["Last Updated", formatDateTime(normalized.last_updated)],
@@ -260,7 +274,7 @@ export function programParametersSnapshotRows(params, display = {}) {
   if (!normalized) return [];
   return [
     ["Qualified Referral", capitalizeWords(formatQualifiedReferralSummary(normalized))],
-    ["Rate", capitalizeWords(formatRateSummary(normalized).replace(/\n/g, " · "))],
+    ["Rate", capitalizeWords(formatRateSummary(normalized))],
     ["Tier Cap", formatTierCapSnapshotDisplay(normalized, display)],
     ["Payout Threshold", formatPayoutThresholdSnapshotDisplay(normalized, display)],
     ["Last Updated", formatDateTime(normalized.last_updated)],
@@ -273,7 +287,7 @@ export function renderProgramParametersSnapshot(params, display = {}) {
   const rows = programParametersSnapshotRows(normalized, display)
     .map(
       ([label, value]) =>
-        `<div class="terms-row"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`
+        `<div class="terms-row"><dt>${escapeHtml(label)}</dt><dd>${renderTermsValueHtml(value)}</dd></div>`
     )
     .join("");
   return `<div class="terms-grid snapshot-terms-grid">${rows}</div>`;
@@ -283,7 +297,7 @@ export function renderProgramTermsCard(params, { reminder = true } = {}) {
   const rows = programParametersRows(params)
     .map(
       ([label, value]) =>
-        `<div class="terms-row"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`
+        `<div class="terms-row"><dt>${escapeHtml(label)}</dt><dd>${renderTermsValueHtml(value)}</dd></div>`
     )
     .join("");
   const reminderHtml = reminder

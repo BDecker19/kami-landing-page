@@ -227,7 +227,14 @@ input:focus { outline: none; border-color: rgba(124, 77, 255, 0.55); box-shadow:
 .metric-value { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: -0.03em; }
 .terms-grid { display: grid; gap: 12px; }
 .terms-row dt { margin: 0 0 4px; color: #dce3fb; font-size: 13px; font-weight: 800; }
-.terms-row dd { margin: 0; color: var(--muted); line-height: 1.55; }
+.terms-row dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  display: grid;
+  gap: 4px;
+}
+.terms-value-line { display: block; }
 .terms-reminder { margin: 16px 0 0; font-size: 13px; color: #9588aa; }
 .agreement-panel { padding: 24px 22px; }
 .agreement-panel-top {
