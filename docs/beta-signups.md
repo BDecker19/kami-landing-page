@@ -96,6 +96,8 @@ If `SUPABASE_SERVICE_ROLE_KEY` is not set, storage is skipped and signup proceed
 
 Requires `RESEND_API_KEY`. Send failures are logged only.
 
+**Admin previews:** mirrored in the admin console at `/emails` — see `admin/src/lib/emails/betaSignupEmail.ts` and `docs/email-inventory.md` in the main app repo.
+
 ## Internal notification emails
 
 **Helper:** `api/lib/beta-internal-notification.js`
