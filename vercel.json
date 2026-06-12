@@ -31,6 +31,10 @@
     {
       "source": "/invite/:code",
       "destination": "/invite/index.html"
+    },
+    {
+      "source": "/ambassador",
+      "destination": "/ambassador/index.html"
     }
   ],
   "redirects": [

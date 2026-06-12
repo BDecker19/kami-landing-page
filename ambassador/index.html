@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kami Ambassador Program</title>
+  <meta name="description" content="Approved Kami ambassadors can log in to view referral activity, program terms, payout status, and ambassador settings." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../assets/k-mark-transparent.png" type="image/png" sizes="any" />
+  <link rel="stylesheet" href="../assets/ambassador/styles.css" />
+  <script src="../assets/supabase-browser-public.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" aria-label="Kami home">
+        <img class="wordmark-img" src="../assets/logo-wordmark.png" alt="Kami" />
+      </a>
+      <a class="nav-link" href="/">Back to Kami</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div id="ambassador-root" class="amb-boot-loading" aria-live="polite" aria-busy="true">
+      <section class="panel boot-panel">
+        <p class="boot-text" role="status">Loading ambassador portal…</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="amb-modal" class="amb-modal" hidden>
+    <div class="amb-modal-backdrop" aria-hidden="true"></div>
+    <div class="amb-modal-card" role="dialog" aria-modal="true" aria-labelledby="amb-modal-title">
+      <button type="button" class="amb-modal-close" id="amb-modal-close" aria-label="Close">×</button>
+      <h2 id="amb-modal-title"></h2>
+      <div id="amb-modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© Kami Social · <a href="mailto:ambassadors@kamisocial.com">ambassadors@kamisocial.com</a></p>
+  </footer>
+
+  <script type="module" src="../assets/ambassador/app.js"></script>
+</body>
+</html>

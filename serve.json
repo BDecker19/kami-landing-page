@@ -6,7 +6,8 @@
     { "source": "/store", "destination": "/store.html" },
     { "source": "/password-reset", "destination": "/password-reset.html" },
     { "source": "/delete-account", "destination": "/delete-account.html" },
-    { "source": "/safety", "destination": "/safety.html" }
+    { "source": "/safety", "destination": "/safety.html" },
+    { "source": "/ambassador", "destination": "/ambassador/index.html" }
   ],
   "redirects": [
     { "source": "/privacy.html", "destination": "/privacy", "type": 301 },
