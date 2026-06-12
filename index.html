@@ -533,21 +533,6 @@ nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filt
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
-  function getAndroidBetaEmailError(value) {
-    var email = String(value || "").trim().toLowerCase();
-    var at = email.lastIndexOf("@");
-    if (at <= 0) return null;
-    var local = email.slice(0, at);
-    var domain = email.slice(at + 1);
-    if (
-      (domain === "gmail.com" || domain === "googlemail.com") &&
-      local.indexOf("+") !== -1
-    ) {
-      return "Gmail plus-addresses (+) aren't supported for Android beta. Use your main Gmail address.";
-    }
-    return null;
-  }
-
   function delay(ms) {
     return new Promise(function (resolve) {
       window.setTimeout(resolve, ms);
@@ -617,15 +602,6 @@ nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filt
         input.focus();
         return;
       }
-      if (typeof config.validateEmail === "function") {
-        var extraError = config.validateEmail(email);
-        if (extraError) {
-          setError(extraError);
-          input.focus();
-          return;
-        }
-      }
-
       setLoading(true);
 
       try {
@@ -657,7 +633,6 @@ nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filt
     successId: "android-beta-success",
     endpoint: ANDROID_BETA_SIGNUP_ENDPOINT,
     platform: "android",
-    validateEmail: getAndroidBetaEmailError,
     onSuccess: function () {
       configureBetaCta(
         document.getElementById("android-play-link"),

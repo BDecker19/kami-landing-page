@@ -5,11 +5,7 @@
 const { parseJsonBody, getClientIp, sendJson } = require("../lib/request");
 const { isRateLimited } = require("../lib/rate-limit");
 const { storeBetaSignup } = require("../lib/beta-signup-store");
-const {
-  normalizeEmail,
-  isValidEmail,
-  getAndroidBetaEmailValidationError,
-} = require("../lib/email");
+const { normalizeEmail, isValidEmail } = require("../lib/email");
 const {
   isConfigured,
   getMissingEnvVars,
@@ -57,12 +53,6 @@ module.exports = async function androidBetaSignup(req, res) {
 
   if (!isValidEmail(email)) {
     sendJson(res, 400, { success: false, error: "Enter a valid email address." });
-    return;
-  }
-
-  const androidEmailError = getAndroidBetaEmailValidationError(email);
-  if (androidEmailError) {
-    sendJson(res, 400, { success: false, error: androidEmailError });
     return;
   }
 

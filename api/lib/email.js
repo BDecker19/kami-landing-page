@@ -11,28 +11,31 @@ function isValidEmail(value) {
 }
 
 /**
- * Android beta uses Google Group enrollment, which rejects Gmail plus-addresses (+alias).
- * Returns a user-facing error string, or null when allowed.
+ * Google Group enrollment via Admin SDK rejects Gmail plus-addresses (+alias).
+ * Map to the base Gmail account used for Play beta access; keep the submitted
+ * address for Supabase storage and confirmation email delivery.
  */
-function getAndroidBetaEmailValidationError(value) {
+function normalizeEmailForGoogleGroupEnrollment(value) {
   const email = normalizeEmail(value);
   const at = email.lastIndexOf("@");
-  if (at <= 0) return null;
+  if (at <= 0) return email;
 
-  const local = email.slice(0, at);
-  const domain = email.slice(at + 1);
-  if (
-    (domain === "gmail.com" || domain === "googlemail.com") &&
-    local.includes("+")
-  ) {
-    return "Gmail plus-addresses (+) aren't supported for Android beta. Use your main Gmail address.";
+  let local = email.slice(0, at);
+  let domain = email.slice(at + 1);
+
+  if (domain === "googlemail.com") {
+    domain = "gmail.com";
   }
 
-  return null;
+  if (domain === "gmail.com" && local.includes("+")) {
+    local = local.split("+")[0];
+  }
+
+  return `${local}@${domain}`;
 }
 
 module.exports = {
   normalizeEmail,
   isValidEmail,
-  getAndroidBetaEmailValidationError,
+  normalizeEmailForGoogleGroupEnrollment,
 };

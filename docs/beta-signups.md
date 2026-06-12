@@ -20,7 +20,7 @@ Website beta signup capture for Android and iOS download forms. Handlers live in
 1. Validate HTTP method and rate-limit by IP and email.
 2. Validate and normalize email (lowercase).
 3. Insert into Supabase `beta_signups` when `SUPABASE_SERVICE_ROLE_KEY` is configured (skipped if not). Storage failures are logged but do not block step 4.
-4. Add member to the internal Android beta Google Group via Admin SDK (`GOOGLE_ANDROID_BETA_GROUP_EMAIL`, default `android-beta@kamisocial.com`). Duplicate membership is treated as success.
+4. Add member to the internal Android beta Google Group via Admin SDK (`GOOGLE_ANDROID_BETA_GROUP_EMAIL`, default `android-beta@kamisocial.com`). Duplicate membership is treated as success. Gmail plus-addresses (`user+tag@gmail.com`) are normalized to the base Gmail account for group enrollment only; the submitted address is still stored and emailed.
 5. Send the user a beta confirmation email via Resend (when configured). Failures are logged but do not fail the signup.
 6. Send an internal notification email to `hello@kamisocial.com` via Resend (when configured). Failures are logged but do not fail the signup.
 7. Return JSON `{ success: true, message: "You're in. Check your email for the Google Play beta link." }`.

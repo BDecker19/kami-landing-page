@@ -9,6 +9,10 @@
  *   GOOGLE_ANDROID_BETA_GROUP_EMAIL (default: android-beta@kamisocial.com)
  */
 const { google } = require("googleapis");
+const {
+  normalizeEmail,
+  normalizeEmailForGoogleGroupEnrollment,
+} = require("./email");
 
 const MEMBER_SCOPE = "https://www.googleapis.com/auth/admin.directory.group.member";
 
@@ -72,9 +76,16 @@ function isAlreadyMemberError(err) {
  * Idempotent when the member already exists.
  */
 async function addGroupMember(email, groupEmail) {
+  const enrollmentEmail = normalizeEmailForGoogleGroupEnrollment(email);
+  const normalizedPlusAlias =
+    normalizeEmail(enrollmentEmail) !== normalizeEmail(email);
+
   console.info("[google-group] adding member", {
     groupEmail,
-    emailDomain: email.includes("@") ? email.split("@")[1] : "invalid",
+    emailDomain: enrollmentEmail.includes("@")
+      ? enrollmentEmail.split("@")[1]
+      : "invalid",
+    plusAliasNormalized: normalizedPlusAlias,
   });
 
   let admin;
@@ -94,16 +105,21 @@ async function addGroupMember(email, groupEmail) {
     await admin.members.insert({
       groupKey: groupEmail,
       requestBody: {
-        email,
+        email: enrollmentEmail,
         role: "MEMBER",
       },
     });
 
-    console.info("[google-group] member added", { groupEmail });
+    console.info("[google-group] member added", {
+      groupEmail,
+      plusAliasNormalized: normalizedPlusAlias,
+    });
     return {
       ok: true,
       message: "Added to Android beta group",
       alreadyMember: false,
+      enrollmentEmail,
+      plusAliasNormalized: normalizedPlusAlias,
     };
   } catch (err) {
     if (isAlreadyMemberError(err)) {
@@ -112,6 +128,8 @@ async function addGroupMember(email, groupEmail) {
         ok: true,
         message: "Already in Android beta group",
         alreadyMember: true,
+        enrollmentEmail,
+        plusAliasNormalized: normalizedPlusAlias,
       };
     }
 
@@ -137,9 +155,13 @@ async function addGroupMember(email, groupEmail) {
     }
 
     if (status === 404) {
+      const memberNotFound =
+        apiMessage && String(apiMessage).includes(enrollmentEmail);
       return {
         ok: false,
-        error: "Google Group not found. Check GOOGLE_ANDROID_BETA_GROUP_EMAIL.",
+        error: memberNotFound
+          ? "Could not enroll Google account for Android beta access."
+          : "Google Group not found. Check GOOGLE_ANDROID_BETA_GROUP_EMAIL.",
       };
     }
 
