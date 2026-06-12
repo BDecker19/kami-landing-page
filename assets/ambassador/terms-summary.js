@@ -43,25 +43,30 @@ export function formatRateSummary(params) {
     return "See dashboard for current rate";
   }
 
-  const sorted = [...tiers].sort((a, b) => {
-    const aCount = a?.referral_count == null ? -1 : Number(a.referral_count);
-    const bCount = b?.referral_count == null ? -1 : Number(b.referral_count);
-    return aCount - bCount;
-  });
-
-  if (sorted.length === 1) {
-    return formatRateLine(Number(sorted[0]?.rate_cents || 0));
+  if (tiers.length === 1) {
+    const only = tiers[0];
+    const count = only?.referral_count;
+    if (count == null || count === "") {
+      return formatRateLine(Number(only?.rate_cents || 0));
+    }
+    return `Tier 1: ${formatRateLine(Number(only?.rate_cents || 0))} for first ${count} Qualified Referrals`;
   }
 
-  return sorted
+  return tiers
     .map((tier, index) => {
       const rate = formatRateLine(Number(tier?.rate_cents || 0));
       const count = tier?.referral_count;
+      const label = `Tier ${index + 1}: ${rate}`;
+
       if (count == null || count === "") {
-        return index === 0 ? `Base Tier: ${rate}` : `Tier ${index + 1}: ${rate}`;
+        return index === 0 ? label : `${label} for all remaining Qualified Referrals`;
       }
-      if (index === 0) return `Tier 1: ${rate}`;
-      return `Tier ${index + 1}: ${rate} after ${count} Qualified Referrals`;
+
+      if (index === 0) {
+        return `${label} for first ${count} Qualified Referrals`;
+      }
+
+      return `${label} for next ${count} Qualified Referrals`;
     })
     .join("\n");
 }
