@@ -492,17 +492,16 @@ nav{position:sticky!important;top:0!important;z-index:50!important;backdrop-filt
   /*
    * Android production flow (POST /api/beta/android):
    * 1. Store email in Supabase (beta_signups, platform = android)
-   * 2. Add email to internal Play beta access list (android-beta@kamisocial.com)
-   * 3. Return success
-   * 4. Client reveals Play Store testing link
+   * 2. Enroll for Android beta access (server-side)
+   * 3. Send confirmation + internal notification emails
+   * 4. Return success; client reveals Play Store testing link
    *
    * iOS production flow (POST /api/beta/ios):
    * 1. Store email in Supabase (beta_signups, platform = ios)
-   * 2. Record platform = ios
-   * 3. Optionally send TestFlight invitations
-   * 4. Return success; client reveals TestFlight link
+   * 2. Send confirmation + internal notification emails
+   * 3. Return success; client reveals TestFlight link when configured
    *
-   * See docs/beta-signups.md for recommended schema and API design.
+   * See docs/beta-signups.md for API design and env vars.
    */
 
   function isLinkConfigured(link) {
