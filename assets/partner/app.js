@@ -135,7 +135,7 @@ function renderPublicShell({ misconfigured = false } = {}) {
     <section class="hero-block">
       <img class="hero-logo" src="/assets/k-mark-transparent.png" alt="Kami" width="72" height="72" />
       <div class="eyebrow">Kami Partner Program</div>
-      <h1>Your venue on Kami.</h1>
+      <h1>Your venues on Kami.</h1>
       <p class="hero-copy">Log in to view your linked venues, referral link, and program status.</p>
     </section>
     <section class="panel login-panel">
