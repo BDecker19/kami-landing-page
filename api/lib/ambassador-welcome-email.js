@@ -1,5 +1,5 @@
 const AMBASSADOR_WELCOME_SUBJECT = "Welcome to the Kami Ambassador Program";
-const AMBASSADOR_WELCOME_FROM = "Benji from Kami <benji@mail.kamisocial.com>";
+const AMBASSADOR_WELCOME_FROM = "Benji from Kami <ambassadors@mail.kamisocial.com>";
 const AMBASSADOR_WELCOME_REPLY_TO = "benji@kamisocial.com";
 const DASHBOARD_URL = "https://www.kamisocial.com/ambassador";
 const WEBSITE_URL = "https://www.kamisocial.com";
