@@ -1,4 +1,5 @@
 const { sendResendEmail } = require("./resend");
+const { logEmailDelivery } = require("./email-delivery-log");
 
 const BETA_INTERNAL_NOTIFICATION_TO = "hello@kamisocial.com";
 const BETA_INTERNAL_NOTIFICATION_FROM = "Kami Beta Signups <benji@mail.kamisocial.com>";
@@ -56,6 +57,20 @@ function renderBetaInternalNotificationText({
   ].join("\n");
 }
 
+function resolveBetaInternalLogFields(platform) {
+  if (platform === "ios") {
+    return {
+      email_type: "beta_signup_internal_notification_ios",
+      template_key: "beta-signup-internal-notification-ios",
+    };
+  }
+
+  return {
+    email_type: "beta_signup_internal_notification_android",
+    template_key: "beta-signup-internal-notification-android",
+  };
+}
+
 async function sendBetaInternalNotification({
   email,
   platform,
@@ -76,6 +91,26 @@ async function sendBetaInternalNotification({
     groupAdd,
     confirmationEmail,
   });
+  const { email_type, template_key } = resolveBetaInternalLogFields(platform);
+  const trigger =
+    platform === "android" ? "POST /api/beta/android" : "POST /api/beta/ios";
+
+  const logBase = {
+    email_type,
+    template_key,
+    category_slug: "ops",
+    recipient_email: BETA_INTERNAL_NOTIFICATION_TO,
+    subject,
+    from_address: BETA_INTERNAL_NOTIFICATION_FROM,
+    is_test: false,
+    metadata: {
+      platform,
+      source,
+      trigger,
+      signup_email: email,
+      requested_at: requestedAt,
+    },
+  };
 
   const result = await sendResendEmail({
     from: BETA_INTERNAL_NOTIFICATION_FROM,
@@ -86,12 +121,23 @@ async function sendBetaInternalNotification({
   });
 
   if (!result.ok) {
+    await logEmailDelivery({
+      ...logBase,
+      status: "failed",
+      failure_reason: result.message || result.error,
+    });
     return {
       ok: false,
       error: result.error || "send_failed",
       message: result.message || null,
     };
   }
+
+  await logEmailDelivery({
+    ...logBase,
+    status: "sent",
+    provider_message_id: result.id,
+  });
 
   return { ok: true, id: result.id || null };
 }

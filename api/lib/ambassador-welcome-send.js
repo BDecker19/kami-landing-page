@@ -1,4 +1,5 @@
 const { sendResendEmail } = require("./resend");
+const { logEmailDelivery } = require("./email-delivery-log");
 const {
   AMBASSADOR_WELCOME_FROM,
   AMBASSADOR_WELCOME_REPLY_TO,
@@ -9,6 +10,8 @@ const {
 } = require("./ambassador-welcome-email");
 
 const EMAIL_TYPE = "ambassador_welcome";
+const TEMPLATE_KEY = "ambassador-welcome";
+const CATEGORY_SLUG = "ambassador";
 
 function welcomeEmailSendEnabled() {
   return process.env.AMBASSADOR_WELCOME_EMAIL_SEND_ENABLED !== "false";
@@ -42,13 +45,22 @@ async function loadAmbassadorRecipient(admin, userId) {
   };
 }
 
-async function logEmailDelivery(admin, row) {
-  const { error } = await admin.from("email_delivery_log").upsert(row, {
-    onConflict: "recipient_user_id,email_type",
-  });
-  if (error) {
-    console.error("email_delivery_log upsert failed", { error: error.message, row });
-  }
+function ambassadorWelcomeLogBase({ userId, acceptanceId, recipientEmail }) {
+  return {
+    email_type: EMAIL_TYPE,
+    template_key: TEMPLATE_KEY,
+    category_slug: CATEGORY_SLUG,
+    recipient_email: recipientEmail,
+    recipient_user_id: userId,
+    subject: AMBASSADOR_WELCOME_SUBJECT,
+    from_address: AMBASSADOR_WELCOME_FROM,
+    reply_to: AMBASSADOR_WELCOME_REPLY_TO,
+    is_test: false,
+    metadata: {
+      acceptance_id: acceptanceId || null,
+      source: "ambassador_agreement_acceptance",
+    },
+  };
 }
 
 async function maybeSendAmbassadorWelcomeEmail(admin, {
@@ -81,14 +93,14 @@ async function maybeSendAmbassadorWelcomeEmail(admin, {
 
   const recipient = await loadAmbassadorRecipient(admin, userId);
   if (!recipient.ok) {
-    await logEmailDelivery(admin, {
-      email_type: EMAIL_TYPE,
-      recipient_user_id: userId,
-      recipient_email: "unknown",
-      subject: AMBASSADOR_WELCOME_SUBJECT,
+    await logEmailDelivery({
+      ...ambassadorWelcomeLogBase({
+        userId,
+        acceptanceId,
+        recipientEmail: "unknown",
+      }),
       status: "skipped",
       failure_reason: recipient.error,
-      metadata: { acceptance_id: acceptanceId || null },
     });
     return { sent: false, status: recipient.error };
   }
@@ -108,15 +120,15 @@ async function maybeSendAmbassadorWelcomeEmail(admin, {
   const now = new Date().toISOString();
 
   if (!sendResult.ok) {
-    await logEmailDelivery(admin, {
-      email_type: EMAIL_TYPE,
-      recipient_user_id: userId,
-      recipient_email: recipient.email,
-      subject: AMBASSADOR_WELCOME_SUBJECT,
+    await logEmailDelivery({
+      ...ambassadorWelcomeLogBase({
+        userId,
+        acceptanceId,
+        recipientEmail: recipient.email,
+      }),
       status: "failed",
       failure_reason: sendResult.message || sendResult.error,
-      metadata: { acceptance_id: acceptanceId || null },
-      created_at: now,
+      sent_at: now,
     });
     console.warn("ambassador welcome email failed", {
       user_id: userId,
@@ -138,15 +150,14 @@ async function maybeSendAmbassadorWelcomeEmail(admin, {
     });
   }
 
-  await logEmailDelivery(admin, {
-    email_type: EMAIL_TYPE,
-    recipient_user_id: userId,
-    recipient_email: recipient.email,
-    subject: AMBASSADOR_WELCOME_SUBJECT,
+  await logEmailDelivery({
+    ...ambassadorWelcomeLogBase({
+      userId,
+      acceptanceId,
+      recipientEmail: recipient.email,
+    }),
     status: "sent",
     provider_message_id: sendResult.id,
-    metadata: { acceptance_id: acceptanceId || null },
-    created_at: now,
     sent_at: now,
   });
 
@@ -162,7 +173,7 @@ async function maybeSendAmbassadorWelcomeEmail(admin, {
 async function sendAmbassadorWelcomeTestEmail(to, { firstName = "Benji" } = {}) {
   const html = renderAmbassadorWelcomeEmailHtml({ firstName });
   const text = renderAmbassadorWelcomeEmailText({ firstName });
-  return sendResendEmail({
+  const sendResult = await sendResendEmail({
     from: AMBASSADOR_WELCOME_FROM,
     to,
     subject: AMBASSADOR_WELCOME_SUBJECT,
@@ -170,6 +181,37 @@ async function sendAmbassadorWelcomeTestEmail(to, { firstName = "Benji" } = {}) 
     text,
     replyTo: AMBASSADOR_WELCOME_REPLY_TO,
   });
+
+  const now = new Date().toISOString();
+  const logBase = {
+    email_type: EMAIL_TYPE,
+    template_key: TEMPLATE_KEY,
+    category_slug: CATEGORY_SLUG,
+    recipient_email: to,
+    subject: AMBASSADOR_WELCOME_SUBJECT,
+    from_address: AMBASSADOR_WELCOME_FROM,
+    reply_to: AMBASSADOR_WELCOME_REPLY_TO,
+    is_test: true,
+    metadata: { source: "send_ambassador_welcome_test_script", first_name: firstName },
+  };
+
+  if (!sendResult.ok) {
+    await logEmailDelivery({
+      ...logBase,
+      status: "failed",
+      failure_reason: sendResult.message || sendResult.error,
+      sent_at: now,
+    });
+  } else {
+    await logEmailDelivery({
+      ...logBase,
+      status: "sent",
+      provider_message_id: sendResult.id,
+      sent_at: now,
+    });
+  }
+
+  return sendResult;
 }
 
 module.exports = {

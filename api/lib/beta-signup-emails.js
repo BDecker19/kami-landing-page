@@ -5,7 +5,7 @@ async function sendBetaSignupEmails({ email, platform, source, storage, groupAdd
   const logPrefix = `[${platform}-beta]`;
   const requestedAt = new Date().toISOString();
 
-  const confirmationEmail = await sendBetaConfirmationEmail({ email, platform });
+  const confirmationEmail = await sendBetaConfirmationEmail({ email, platform, source });
   if (!confirmationEmail.ok) {
     console.error(`${logPrefix} confirmation email failed`, {
       error: confirmationEmail.error,

@@ -1,4 +1,5 @@
 const { sendResendEmail } = require("./resend");
+const { logEmailDelivery } = require("./email-delivery-log");
 
 const BETA_CONFIRMATION_SUBJECT = "Welcome to the Kami Beta";
 const BETA_CONFIRMATION_FROM = "Benji from Kami <benji@mail.kamisocial.com>";
@@ -130,10 +131,50 @@ function buildBetaConfirmationContent(platform) {
   };
 }
 
-async function sendBetaConfirmationEmail({ email, platform }) {
+function resolveBetaConfirmationLogFields(platform) {
+  if (platform === "android") {
+    return {
+      email_type: "beta_signup_confirmation_android",
+      template_key: "beta-signup-confirmation-android",
+    };
+  }
+
+  if (resolveIosTestflightLink()) {
+    return {
+      email_type: "beta_signup_confirmation_ios_testflight",
+      template_key: "beta-signup-confirmation-ios-testflight",
+    };
+  }
+
+  return {
+    email_type: "beta_signup_confirmation_ios_waitlist",
+    template_key: "beta-signup-confirmation-ios-waitlist",
+  };
+}
+
+async function sendBetaConfirmationEmail({ email, platform, source = "website" }) {
   const content = buildBetaConfirmationContent(platform);
   const html = renderBetaConfirmationEmailHtml({ platform, ...content });
   const text = renderBetaConfirmationEmailText({ platform, ...content });
+  const { email_type, template_key } = resolveBetaConfirmationLogFields(platform);
+  const trigger =
+    platform === "android" ? "POST /api/beta/android" : "POST /api/beta/ios";
+
+  const logBase = {
+    email_type,
+    template_key,
+    category_slug: "registration",
+    recipient_email: email,
+    subject: BETA_CONFIRMATION_SUBJECT,
+    from_address: BETA_CONFIRMATION_FROM,
+    reply_to: BETA_CONFIRMATION_REPLY_TO,
+    is_test: false,
+    metadata: {
+      platform,
+      source,
+      trigger,
+    },
+  };
 
   const result = await sendResendEmail({
     from: BETA_CONFIRMATION_FROM,
@@ -145,12 +186,23 @@ async function sendBetaConfirmationEmail({ email, platform }) {
   });
 
   if (!result.ok) {
+    await logEmailDelivery({
+      ...logBase,
+      status: "failed",
+      failure_reason: result.message || result.error,
+    });
     return {
       ok: false,
       error: result.error || "send_failed",
       message: result.message || null,
     };
   }
+
+  await logEmailDelivery({
+    ...logBase,
+    status: "sent",
+    provider_message_id: result.id,
+  });
 
   return { ok: true, id: result.id || null };
 }
